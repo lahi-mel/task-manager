@@ -8,25 +8,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-/* ===================== VARIABLES ===================== */
+/* ===================== LAHI BRAND VARIABLES ===================== */
 :root {
-  --navy: #0B1E3D;
-  --red: #E6323E;
-  --gold: #F4A91F;
-  --ribbon-bg: #745202;
-  --white: #FFFFFF;
-  --bg: #F0F4F8;
+  /* LAHI official colors */
+  --lahi-orange: #E8501A;        /* Primary brand orange */
+  --lahi-orange-dark: #C43E0F;   /* Darker orange for hover */
+  --lahi-orange-light: #F97846;  /* Lighter orange accent */
+  --lahi-cream: #FDF6EE;         /* Warm cream background */
+  --lahi-amber: #F4A91F;         /* Warm amber/gold accent */
+  --lahi-brown: #6B3A1F;         /* Deep brown */
+  --lahi-charcoal: #2C1810;      /* Near-black charcoal */
+  --lahi-teal: #1A7A6E;          /* Teal for success states */
+  --lahi-maroon: #8B1A1A;        /* Deep red for danger */
+
+  /* UI semantic aliases */
+  --primary: var(--lahi-orange);
+  --primary-dark: var(--lahi-orange-dark);
+  --primary-light: var(--lahi-orange-light);
+  --bg: #FBF5EE;
+  --bg-alt: #F5EDE0;
   --card-bg: #FFFFFF;
-  --border: #E2E8F0;
-  --text: #1A202C;
-  --text-muted: #64748B;
-  --row-hover: #F8FAFC;
-  --success: #16A34A;
+  --border: #E8D5C0;
+  --border-light: #F0E4D4;
+  --text: #2C1810;
+  --text-muted: #8A6A54;
+  --text-light: #B89880;
+  --row-hover: #FEF8F2;
+  --success: var(--lahi-teal);
   --warning: #D97706;
-  --danger: #DC2626;
-  --info: #2563EB;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --danger: var(--lahi-maroon);
+  --info: #1A5F7A;
+  --shadow: 0 2px 12px rgba(232,80,26,0.08);
+  --shadow-lg: 0 8px 32px rgba(232,80,26,0.14);
   --radius: 10px;
   --transition: 0.2s ease;
 }
@@ -45,19 +58,17 @@ body {
 /* ===================== LOADING OVERLAY ===================== */
 #loading-overlay {
   position: fixed; inset: 0;
-  background: rgba(11,30,61,0.85);
+  background: rgba(44,24,16,0.88);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  z-index: 9999;
-  color: white;
-  gap: 16px;
+  z-index: 9999; color: white; gap: 16px;
   transition: opacity 0.3s;
 }
 #loading-overlay.hidden { opacity: 0; pointer-events: none; }
 .spinner {
   width: 44px; height: 44px;
   border: 4px solid rgba(255,255,255,0.2);
-  border-top-color: var(--gold);
+  border-top-color: var(--lahi-amber);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -71,145 +82,163 @@ body {
   pointer-events: none;
 }
 .toast {
-  background: var(--navy);
+  background: var(--lahi-charcoal);
   color: white;
   padding: 12px 18px;
   border-radius: 8px;
-  font-size: 0.88rem;
-  font-weight: 500;
+  font-size: 0.88rem; font-weight: 500;
   box-shadow: var(--shadow-lg);
   display: flex; align-items: center; gap: 10px;
   animation: slideIn 0.3s ease;
-  max-width: 360px;
-  pointer-events: all;
+  max-width: 380px; pointer-events: all;
 }
-.toast.success { border-left: 4px solid var(--success); }
-.toast.error { border-left: 4px solid var(--red); }
-.toast.info { border-left: 4px solid var(--gold); }
+.toast.success { border-left: 4px solid #2ECC9A; }
+.toast.error   { border-left: 4px solid var(--lahi-orange); }
+.toast.info    { border-left: 4px solid var(--lahi-amber); }
 @keyframes slideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
+@keyframes slideOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(120%); } }
 
 /* ===================== LOGIN PAGE ===================== */
 #login-page {
   min-height: 100vh;
   display: flex;
-  background: linear-gradient(135deg, var(--navy) 0%, #1a3a6e 60%, #0d2a55 100%);
-  position: relative;
-  overflow: hidden;
+  background: var(--lahi-charcoal);
+  position: relative; overflow: hidden;
 }
 #login-page::before {
   content: '';
-  position: absolute;
-  top: -200px; right: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(244,169,31,0.12) 0%, transparent 70%);
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 50%, rgba(232,80,26,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 20%, rgba(244,169,31,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 70% 80%, rgba(232,80,26,0.1) 0%, transparent 60%);
   pointer-events: none;
 }
+/* Decorative pattern */
 #login-page::after {
   content: '';
-  position: absolute;
-  bottom: -150px; left: -150px;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(230,50,62,0.08) 0%, transparent 70%);
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
   pointer-events: none;
 }
-.login-container {
-  margin: auto;
-  width: 100%;
-  max-width: 440px;
-  padding: 20px;
-  position: relative;
-  z-index: 1;
+.login-split {
+  display: flex; width: 100%; position: relative; z-index: 1;
 }
-.login-card {
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  padding: 40px 36px;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.4);
-}
-.login-header { text-align: center; margin-bottom: 32px; }
-.login-logo {
-  width: 64px; height: 64px;
-  background: var(--gold);
-  border-radius: 50%;
+.login-left {
+  flex: 1;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-  font-size: 1.6rem; color: var(--navy); font-weight: 800;
+  padding: 60px 40px;
 }
-.login-title { color: white; font-size: 1.5rem; font-weight: 700; }
-.login-subtitle { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 4px; }
+.login-brand-panel {
+  text-align: center; max-width: 380px;
+}
+.login-brand-icon {
+  width: 90px; height: 90px;
+  background: linear-gradient(135deg, var(--lahi-orange), var(--lahi-amber));
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px;
+  box-shadow: 0 12px 40px rgba(232,80,26,0.4);
+  font-size: 2.2rem; color: white; font-weight: 900;
+  letter-spacing: -1px;
+}
+.login-brand-name {
+  font-size: 1.8rem; font-weight: 800; color: white; margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.login-brand-sub {
+  font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.6;
+  max-width: 280px; margin: 0 auto;
+}
+.login-brand-divider {
+  width: 40px; height: 3px;
+  background: var(--lahi-orange);
+  border-radius: 2px;
+  margin: 20px auto;
+}
+.login-features {
+  display: flex; flex-direction: column; gap: 10px; margin-top: 32px; text-align: left;
+}
+.login-feature {
+  display: flex; align-items: center; gap: 12px;
+  color: rgba(255,255,255,0.55); font-size: 0.83rem;
+}
+.login-feature i { color: var(--lahi-orange); width: 16px; flex-shrink: 0; }
+
+.login-right {
+  width: 460px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 40px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255,255,255,0.07);
+}
+.login-form-wrap { width: 100%; max-width: 360px; }
+.login-form-title { color: white; font-size: 1.35rem; font-weight: 700; margin-bottom: 6px; }
+.login-form-sub { color: rgba(255,255,255,0.45); font-size: 0.83rem; margin-bottom: 28px; }
 
 .form-group { margin-bottom: 18px; }
-.form-label { display: block; color: rgba(255,255,255,0.7); font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.form-label {
+  display: block; color: rgba(255,255,255,0.6);
+  font-size: 0.78rem; font-weight: 600; margin-bottom: 7px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
 .form-input {
   width: 100%;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 11px 14px;
-  color: white;
-  font-size: 0.93rem;
-  font-family: inherit;
-  transition: var(--transition);
-  outline: none;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 9px; padding: 11px 14px;
+  color: white; font-size: 0.92rem; font-family: inherit;
+  transition: var(--transition); outline: none;
 }
-.form-input::placeholder { color: rgba(255,255,255,0.3); }
-.form-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.1); box-shadow: 0 0 0 3px rgba(244,169,31,0.15); }
-.form-input.error-field { border-color: var(--red); }
-
+.form-input::placeholder { color: rgba(255,255,255,0.25); }
+.form-input:focus {
+  border-color: var(--lahi-orange);
+  background: rgba(255,255,255,0.09);
+  box-shadow: 0 0 0 3px rgba(232,80,26,0.18);
+}
 .input-wrap { position: relative; }
 .toggle-pw {
   position: absolute; right: 12px; top: 50%;
   transform: translateY(-50%);
   background: none; border: none;
-  color: rgba(255,255,255,0.4);
-  cursor: pointer; padding: 4px;
+  color: rgba(255,255,255,0.35); cursor: pointer; padding: 4px;
   transition: color var(--transition);
 }
-.toggle-pw:hover { color: rgba(255,255,255,0.8); }
+.toggle-pw:hover { color: rgba(255,255,255,0.75); }
 
 .btn-primary {
   width: 100%;
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all var(--transition);
-  margin-top: 6px;
+  background: linear-gradient(135deg, var(--lahi-orange), var(--lahi-orange-dark));
+  color: white; border: none; border-radius: 9px;
+  padding: 12px 20px; font-size: 0.95rem; font-weight: 700;
+  font-family: inherit; cursor: pointer;
+  transition: all var(--transition); margin-top: 6px;
+  box-shadow: 0 4px 16px rgba(232,80,26,0.3);
 }
-.btn-primary:hover { background: #e09a15; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(244,169,31,0.3); }
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--lahi-orange-light), var(--lahi-orange));
+  transform: translateY(-1px); box-shadow: 0 6px 24px rgba(232,80,26,0.4);
+}
 .btn-primary:active { transform: translateY(0); }
-.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
 .forgot-link {
-  display: block; text-align: center;
-  color: rgba(255,255,255,0.45);
-  font-size: 0.83rem;
-  text-decoration: none;
-  margin-top: 14px;
-  cursor: pointer;
-  transition: color var(--transition);
+  display: block; text-align: center; color: rgba(255,255,255,0.38);
+  font-size: 0.82rem; text-decoration: none; margin-top: 14px;
+  cursor: pointer; transition: color var(--transition);
 }
-.forgot-link:hover { color: var(--gold); }
+.forgot-link:hover { color: var(--lahi-amber); }
 
 .error-msg {
-  background: rgba(230,50,62,0.15);
-  border: 1px solid rgba(230,50,62,0.4);
-  color: #fca5a5;
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 0.85rem;
-  margin-bottom: 16px;
-  display: none;
+  background: rgba(232,80,26,0.15);
+  border: 1px solid rgba(232,80,26,0.4);
+  color: #FFBAA0; border-radius: 7px;
+  padding: 10px 14px; font-size: 0.85rem;
+  margin-bottom: 16px; display: none;
 }
-.error-msg.visible { display: block; }
+.error-msg.visible { display: flex; align-items: center; gap: 8px; }
 
 /* ===================== APP SHELL ===================== */
 #app { display: none; flex-direction: column; min-height: 100vh; }
@@ -217,453 +246,477 @@ body {
 
 /* TOP RIBBON */
 #top-ribbon {
-  background: var(--ribbon-bg);
-  padding: 8px 24px;
-  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(90deg, var(--lahi-charcoal) 0%, var(--lahi-brown) 100%);
+  padding: 0 24px;
+  display: flex; align-items: stretch; justify-content: space-between;
   flex-shrink: 0;
+  border-bottom: 3px solid var(--lahi-orange);
+  min-height: 56px;
 }
 .ribbon-brand { display: flex; align-items: center; gap: 12px; }
 .ribbon-logo {
-  width: 34px; height: 34px;
-  background: white;
-  border-radius: 6px;
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--lahi-orange), var(--lahi-amber));
+  border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 0.75rem; color: var(--ribbon-bg);
-  letter-spacing: -0.5px;
+  font-weight: 900; font-size: 0.7rem; color: white;
+  letter-spacing: -0.5px; line-height: 1;
+  box-shadow: 0 2px 8px rgba(232,80,26,0.4);
 }
 .ribbon-brand-text { color: white; }
 .ribbon-name { font-weight: 700; font-size: 0.95rem; line-height: 1.2; }
-.ribbon-dept { font-size: 0.72rem; opacity: 0.65; letter-spacing: 0.04em; }
+.ribbon-dept { font-size: 0.7rem; opacity: 0.55; letter-spacing: 0.04em; }
+.ribbon-tagline {
+  color: var(--lahi-orange); font-size: 0.68rem;
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0.9;
+}
 
-.ribbon-right { display: flex; align-items: center; gap: 12px; }
+.ribbon-right { display: flex; align-items: center; gap: 8px; }
 .ribbon-user { display: flex; align-items: center; gap: 10px; }
 .ribbon-avatar {
-  width: 32px; height: 32px;
-  background: rgba(255,255,255,0.2);
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--lahi-orange), var(--lahi-amber));
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 0.85rem; color: white;
+  font-weight: 700; font-size: 0.88rem; color: white;
+  box-shadow: 0 2px 8px rgba(232,80,26,0.4);
 }
 .ribbon-user-info { color: white; }
-.ribbon-user-name { font-weight: 600; font-size: 0.85rem; line-height: 1.2; }
-.ribbon-user-email { font-size: 0.7rem; opacity: 0.6; }
+.ribbon-user-name { font-weight: 600; font-size: 0.84rem; line-height: 1.2; }
+.ribbon-user-email { font-size: 0.69rem; opacity: 0.5; }
+.ribbon-role-badge {
+  display: inline-block;
+  font-size: 0.6rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 1px 6px; border-radius: 10px;
+  background: rgba(232,80,26,0.3);
+  color: var(--lahi-orange-light);
+  margin-top: 2px;
+}
 
 .btn-icon {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  border-radius: 7px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: white; border-radius: 7px;
   width: 34px; height: 34px;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition);
-  font-size: 0.85rem;
+  cursor: pointer; transition: all var(--transition); font-size: 0.85rem;
 }
-.btn-icon:hover { background: rgba(255,255,255,0.22); }
+.btn-icon:hover { background: rgba(232,80,26,0.3); border-color: var(--lahi-orange); }
 #admin-btn .fa-gear { transition: transform 0.4s ease; }
 #admin-btn:hover .fa-gear { transform: rotate(180deg); }
 
+/* VISIBILITY BANNER */
+#visibility-banner {
+  background: linear-gradient(90deg, rgba(232,80,26,0.08), rgba(244,169,31,0.06));
+  border-bottom: 1px solid var(--border);
+  padding: 8px 24px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.8rem; color: var(--text-muted);
+}
+#visibility-banner i { color: var(--lahi-orange); }
+#visibility-banner strong { color: var(--lahi-orange); }
+
 /* MAIN CONTENT */
-#main-content { flex: 1; padding: 24px; max-width: 1400px; margin: 0 auto; width: 100%; }
+#main-content { flex: 1; padding: 22px 24px; max-width: 1440px; margin: 0 auto; width: 100%; }
 
 /* PAGE HEADER */
 .page-header {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 24px;
-  flex-wrap: wrap; gap: 12px;
+  margin-bottom: 22px; flex-wrap: wrap; gap: 12px;
 }
 .page-title-area { display: flex; align-items: center; gap: 14px; }
-.page-title { font-size: 1.6rem; font-weight: 800; color: var(--navy); }
+.page-title { font-size: 1.55rem; font-weight: 800; color: var(--lahi-charcoal); letter-spacing: -0.3px; }
+.page-title span { color: var(--lahi-orange); }
+.page-subtitle { color: var(--text-muted); font-size: 0.83rem; margin-top: 2px; }
 .page-title-logo {
-  width: 52px; height: 52px;
-  background: var(--navy);
-  border-radius: 10px;
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg, var(--lahi-orange), var(--lahi-amber));
+  border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  color: var(--gold); font-weight: 800; font-size: 0.7rem;
-  text-align: center; letter-spacing: -0.5px;
+  color: white; font-weight: 900; font-size: 0.65rem;
+  text-align: center; letter-spacing: -0.5px; line-height: 1.3;
+  box-shadow: 0 4px 14px rgba(232,80,26,0.3);
 }
-.page-subtitle { color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; }
 
 .btn-add {
-  background: var(--navy);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 18px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
+  background: linear-gradient(135deg, var(--lahi-orange), var(--lahi-orange-dark));
+  color: white; border: none; border-radius: 9px;
+  padding: 10px 20px; font-size: 0.88rem; font-weight: 700;
+  font-family: inherit; cursor: pointer;
   display: flex; align-items: center; gap: 8px;
   transition: all var(--transition);
+  box-shadow: 0 3px 12px rgba(232,80,26,0.3);
 }
-.btn-add:hover { background: #162f5c; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(11,30,61,0.25); }
+.btn-add:hover {
+  background: linear-gradient(135deg, var(--lahi-orange-light), var(--lahi-orange));
+  transform: translateY(-1px); box-shadow: 0 5px 18px rgba(232,80,26,0.4);
+}
 
 /* STATS CARDS */
 #stats-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 14px;
-  margin-bottom: 24px;
+  gap: 13px; margin-bottom: 22px;
 }
 .stat-card {
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 16px 14px;
   box-shadow: var(--shadow);
-  border-left: 4px solid var(--border);
+  border-top: 3px solid var(--border);
   transition: all var(--transition);
-  cursor: default;
+  position: relative; overflow: hidden;
+}
+.stat-card::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 50px; height: 50px;
+  border-radius: 0 0 0 50px;
+  opacity: 0.05;
 }
 .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-.stat-card.total { border-left-color: var(--navy); }
-.stat-card.completed { border-left-color: var(--success); }
-.stat-card.pending { border-left-color: var(--gold); }
-.stat-card.delayed { border-left-color: var(--danger); }
-.stat-card.onhold { border-left-color: #6366F1; }
-.stat-card.overdue { border-left-color: #EF4444; }
-.stat-card.highpri { border-left-color: var(--red); }
+.stat-card.total    { border-top-color: var(--lahi-orange); }
+.stat-card.total::after    { background: var(--lahi-orange); }
+.stat-card.completed{ border-top-color: var(--lahi-teal); }
+.stat-card.completed::after{ background: var(--lahi-teal); }
+.stat-card.pending  { border-top-color: var(--lahi-amber); }
+.stat-card.pending::after  { background: var(--lahi-amber); }
+.stat-card.delayed  { border-top-color: #DC4C19; }
+.stat-card.delayed::after  { background: #DC4C19; }
+.stat-card.onhold   { border-top-color: #7B5EA7; }
+.stat-card.onhold::after   { background: #7B5EA7; }
+.stat-card.overdue  { border-top-color: var(--lahi-maroon); }
+.stat-card.overdue::after  { background: var(--lahi-maroon); }
+.stat-card.highpri  { border-top-color: var(--lahi-orange-dark); }
+.stat-card.highpri::after  { background: var(--lahi-orange-dark); }
 
-.stat-icon { font-size: 1.2rem; margin-bottom: 8px; }
-.stat-card.total .stat-icon { color: var(--navy); }
-.stat-card.completed .stat-icon { color: var(--success); }
-.stat-card.pending .stat-icon { color: var(--gold); }
-.stat-card.delayed .stat-icon { color: var(--danger); }
-.stat-card.onhold .stat-icon { color: #6366F1; }
-.stat-card.overdue .stat-icon { color: #EF4444; }
-.stat-card.highpri .stat-icon { color: var(--red); }
-
+.stat-icon { font-size: 1.15rem; margin-bottom: 8px; }
+.stat-card.total .stat-icon     { color: var(--lahi-orange); }
+.stat-card.completed .stat-icon { color: var(--lahi-teal); }
+.stat-card.pending .stat-icon   { color: var(--lahi-amber); }
+.stat-card.delayed .stat-icon   { color: #DC4C19; }
+.stat-card.onhold .stat-icon    { color: #7B5EA7; }
+.stat-card.overdue .stat-icon   { color: var(--lahi-maroon); }
+.stat-card.highpri .stat-icon   { color: var(--lahi-orange-dark); }
 .stat-count { font-size: 1.8rem; font-weight: 800; color: var(--text); line-height: 1; }
-.stat-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+.stat-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
 
 /* FILTER BAR */
 #filter-bar {
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 16px 18px;
+  padding: 14px 18px;
   box-shadow: var(--shadow);
-  margin-bottom: 20px;
-  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
   flex-wrap: wrap;
+  border: 1px solid var(--border-light);
 }
-.filter-label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+.filter-label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
 .filter-select {
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: 7px;
   padding: 7px 28px 7px 10px;
-  font-size: 0.85rem;
-  font-family: inherit;
-  color: var(--text);
-  cursor: pointer;
-  outline: none;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  transition: border-color var(--transition);
-  min-width: 130px;
+  font-size: 0.83rem; font-family: inherit;
+  color: var(--text); cursor: pointer;
+  outline: none; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238A6A54' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 8px center;
+  transition: border-color var(--transition); min-width: 130px;
 }
-.filter-select:focus { border-color: var(--navy); }
-
+.filter-select:focus { border-color: var(--lahi-orange); box-shadow: 0 0 0 2px rgba(232,80,26,0.1); }
 .btn-clear {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  border-radius: 7px;
-  padding: 7px 14px;
-  font-size: 0.83rem;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all var(--transition);
-  white-space: nowrap;
+  background: none; border: 1.5px solid var(--border);
+  color: var(--text-muted); border-radius: 7px;
+  padding: 7px 14px; font-size: 0.82rem;
+  font-family: inherit; cursor: pointer;
+  transition: all var(--transition); white-space: nowrap;
 }
-.btn-clear:hover { border-color: var(--red); color: var(--red); }
+.btn-clear:hover { border-color: var(--lahi-orange); color: var(--lahi-orange); }
 
 /* TASK TABLE */
 #table-wrap {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
+  background: var(--card-bg); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden;
+  border: 1px solid var(--border-light);
 }
 .table-header {
-  padding: 16px 18px;
+  padding: 14px 18px;
   display: flex; align-items: center; justify-content: space-between;
   border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, #FFF8F4, var(--card-bg));
 }
-.table-title { font-weight: 700; font-size: 0.95rem; color: var(--navy); }
-.task-count { font-size: 0.8rem; color: var(--text-muted); background: var(--bg); padding: 3px 10px; border-radius: 20px; }
+.table-title { font-weight: 700; font-size: 0.92rem; color: var(--lahi-charcoal); display: flex; align-items: center; gap: 8px; }
+.table-title::before { content: ''; display: block; width: 3px; height: 16px; background: var(--lahi-orange); border-radius: 2px; }
+.task-count { font-size: 0.78rem; color: var(--text-muted); background: var(--bg); padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border); }
 
 .table-scroll { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; min-width: 900px; }
+table { width: 100%; border-collapse: collapse; min-width: 960px; }
 thead th {
-  background: var(--bg);
-  padding: 10px 14px;
-  text-align: left;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  white-space: nowrap;
-  user-select: none;
+  background: var(--bg-alt);
+  padding: 10px 13px;
+  text-align: left; font-size: 0.73rem; font-weight: 700;
+  color: var(--text-muted); text-transform: uppercase;
+  letter-spacing: 0.05em; cursor: pointer;
+  white-space: nowrap; user-select: none;
   border-bottom: 1px solid var(--border);
   transition: color var(--transition);
 }
-thead th:hover { color: var(--navy); }
-thead th .sort-icon { margin-left: 4px; opacity: 0.4; }
-thead th.sorted .sort-icon { opacity: 1; color: var(--navy); }
+thead th:hover { color: var(--lahi-orange); }
+thead th .sort-icon { margin-left: 4px; opacity: 0.35; }
+thead th.sorted .sort-icon { opacity: 1; color: var(--lahi-orange); }
 
-tbody tr {
-  border-bottom: 1px solid var(--border);
-  transition: background var(--transition);
-}
+tbody tr { border-bottom: 1px solid var(--border-light); transition: background var(--transition); }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--row-hover); }
-tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical-align: middle; }
+tbody td { padding: 11px 13px; font-size: 0.862rem; color: var(--text); vertical-align: middle; }
 
-.task-title { font-weight: 600; color: var(--navy); max-width: 220px; }
-.task-desc { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
-.task-id { font-size: 0.75rem; font-family: monospace; color: var(--text-muted); white-space: nowrap; }
+.task-title-cell .tt { font-weight: 600; color: var(--lahi-charcoal); }
+.task-title-cell .td { font-size: 0.76rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; margin-top: 1px; }
+.task-id { font-size: 0.72rem; font-family: 'Courier New', monospace; color: var(--text-light); white-space: nowrap; }
+.assigned-to { font-weight: 500; }
+.assigned-by-cell { font-size: 0.8rem; color: var(--text-muted); }
 
-/* STATUS BADGES */
+/* STATUS / PRIORITY BADGES */
 .badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap;
 }
-.badge-completed { background: #DCFCE7; color: #15803D; }
-.badge-pending { background: #FEF9C3; color: #92400E; }
-.badge-delayed { background: #FEE2E2; color: #991B1B; }
-.badge-onhold { background: #EDE9FE; color: #5B21B6; }
-.badge-overdue { background: #FEE2E2; color: #B91C1C; }
+.badge-completed  { background: #D1FAE5; color: #065F46; }
+.badge-pending    { background: #FEF3C7; color: #92400E; }
+.badge-delayed    { background: #FFEDD5; color: #9A3412; }
+.badge-onhold     { background: #EDE9FE; color: #5B21B6; }
+.badge-overdue    { background: #FEE2E2; color: #991B1B; }
 .badge-notstarted { background: #F1F5F9; color: #475569; }
-.badge-high { background: #FEE2E2; color: #DC2626; }
-.badge-medium { background: #FEF9C3; color: #92400E; }
-.badge-low { background: #DCFCE7; color: #15803D; }
+.badge-high       { background: #FFEDD5; color: #9A3412; }
+.badge-medium     { background: #FEF9C3; color: #92400E; }
+.badge-low        { background: #DCFCE7; color: #15803D; }
 
 /* TABLE ACTION BUTTONS */
 .action-btn {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 5px 10px;
-  font-size: 0.76rem;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 600;
-  transition: all var(--transition);
-  white-space: nowrap;
+  background: none; border: 1.5px solid var(--border);
+  border-radius: 6px; padding: 4px 9px;
+  font-size: 0.74rem; cursor: pointer;
+  font-family: inherit; font-weight: 600;
+  transition: all var(--transition); white-space: nowrap;
 }
-.action-btn.edit { color: var(--navy); }
-.action-btn.edit:hover { background: var(--navy); color: white; border-color: var(--navy); }
-.action-btn.update { color: var(--success); }
-.action-btn.update:hover { background: var(--success); color: white; border-color: var(--success); }
+.action-btn.edit   { color: var(--info); }
+.action-btn.edit:hover   { background: var(--info); color: white; border-color: var(--info); }
+.action-btn.update { color: var(--lahi-teal); }
+.action-btn.update:hover { background: var(--lahi-teal); color: white; border-color: var(--lahi-teal); }
 .action-btn.delete { color: var(--danger); }
 .action-btn.delete:hover { background: var(--danger); color: white; border-color: var(--danger); }
-.action-btns { display: flex; gap: 5px; }
+.action-btns { display: flex; gap: 4px; }
 
-/* EMPTY STATE */
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--text-muted);
-}
-.empty-state i { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.3; }
-.empty-state p { font-size: 0.9rem; }
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+.empty-state i { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.25; display: block; }
+.empty-state p { font-size: 0.88rem; }
 
 /* ===================== MODALS ===================== */
 .modal-backdrop {
   position: fixed; inset: 0;
-  background: rgba(11,30,61,0.6);
+  background: rgba(44,24,16,0.65);
   backdrop-filter: blur(4px);
   z-index: 1000;
   display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  pointer-events: none;
+  padding: 20px; opacity: 0; pointer-events: none;
   transition: opacity 0.2s ease;
 }
 .modal-backdrop.open { opacity: 1; pointer-events: all; }
 .modal {
-  background: white;
-  border-radius: 14px;
-  width: 100%;
-  max-width: 560px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+  background: white; border-radius: 14px;
+  width: 100%; max-width: 580px;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(44,24,16,0.25);
   transform: translateY(20px) scale(0.97);
   transition: transform 0.25s ease;
+  border-top: 4px solid var(--lahi-orange);
 }
 .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
 .modal.wide { max-width: 760px; }
 
 .modal-head {
-  padding: 22px 24px 16px;
+  padding: 20px 24px 14px;
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 0; background: white; z-index: 1;
 }
-.modal-title { font-weight: 700; font-size: 1.05rem; color: var(--navy); }
+.modal-title { font-weight: 700; font-size: 1.02rem; color: var(--lahi-charcoal); display: flex; align-items: center; gap: 8px; }
+.modal-title-icon { color: var(--lahi-orange); }
 .modal-close {
-  background: none; border: none;
-  color: var(--text-muted); cursor: pointer;
-  width: 30px; height: 30px;
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all var(--transition);
-  font-size: 1rem;
+  background: none; border: none; color: var(--text-muted);
+  cursor: pointer; width: 30px; height: 30px;
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition); font-size: 1rem;
 }
-.modal-close:hover { background: var(--bg); color: var(--red); }
+.modal-close:hover { background: var(--bg); color: var(--lahi-orange); }
 
 .modal-body { padding: 20px 24px; }
 .modal-foot {
-  padding: 16px 24px;
+  padding: 14px 24px;
   border-top: 1px solid var(--border);
   display: flex; gap: 10px; justify-content: flex-end;
   position: sticky; bottom: 0; background: white; z-index: 1;
 }
 
-/* MODAL FORM ELEMENTS */
+/* MODAL FORM */
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.field-group { margin-bottom: 16px; }
+.field-group { margin-bottom: 15px; }
 .field-group.full { grid-column: 1 / -1; }
-.field-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
-.field-input, .field-select, .field-textarea {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  padding: 9px 12px;
-  font-size: 0.88rem;
-  font-family: inherit;
-  color: var(--text);
-  background: var(--bg);
-  transition: border-color var(--transition);
-  outline: none;
+.field-label {
+  display: block; font-size: 0.77rem; font-weight: 700;
+  color: var(--text-muted); margin-bottom: 5px;
+  text-transform: uppercase; letter-spacing: 0.05em;
 }
-.field-input:focus, .field-select:focus, .field-textarea:focus { border-color: var(--navy); background: white; box-shadow: 0 0 0 3px rgba(11,30,61,0.06); }
-.field-textarea { resize: vertical; min-height: 80px; }
-.field-input.error, .field-select.error { border-color: var(--red); }
-.field-error { font-size: 0.77rem; color: var(--red); margin-top: 4px; display: none; }
+.field-input, .field-select, .field-textarea {
+  width: 100%; border: 1.5px solid var(--border);
+  border-radius: 8px; padding: 9px 12px;
+  font-size: 0.875rem; font-family: inherit;
+  color: var(--text); background: var(--bg);
+  transition: border-color var(--transition); outline: none;
+}
+.field-input:focus, .field-select:focus, .field-textarea:focus {
+  border-color: var(--lahi-orange); background: white;
+  box-shadow: 0 0 0 3px rgba(232,80,26,0.08);
+}
+.field-textarea { resize: vertical; min-height: 78px; }
+.field-input.error { border-color: var(--danger); }
+.field-error { font-size: 0.75rem; color: var(--danger); margin-top: 3px; display: none; }
 .field-error.visible { display: block; }
 
-/* MODAL BUTTONS */
 .btn-modal-primary {
-  background: var(--navy);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 9px 22px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
+  background: linear-gradient(135deg, var(--lahi-orange), var(--lahi-orange-dark));
+  color: white; border: none; border-radius: 8px;
+  padding: 9px 22px; font-size: 0.87rem; font-weight: 700;
+  font-family: inherit; cursor: pointer;
   transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(232,80,26,0.25);
 }
-.btn-modal-primary:hover { background: #162f5c; }
-.btn-modal-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-modal-primary:hover { background: linear-gradient(135deg, var(--lahi-orange-light), var(--lahi-orange)); transform: translateY(-1px); }
+.btn-modal-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 .btn-modal-secondary {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  border-radius: 8px;
-  padding: 9px 22px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all var(--transition);
+  background: none; border: 1.5px solid var(--border);
+  color: var(--text-muted); border-radius: 8px;
+  padding: 9px 22px; font-size: 0.87rem; font-weight: 600;
+  font-family: inherit; cursor: pointer; transition: all var(--transition);
 }
 .btn-modal-secondary:hover { border-color: var(--text-muted); color: var(--text); }
 .btn-modal-danger {
-  background: var(--danger);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 9px 22px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all var(--transition);
+  background: var(--danger); color: white; border: none; border-radius: 8px;
+  padding: 9px 22px; font-size: 0.87rem; font-weight: 700;
+  font-family: inherit; cursor: pointer; transition: all var(--transition);
 }
-.btn-modal-danger:hover { background: #b91c1c; }
+.btn-modal-danger:hover { background: #7A1515; }
 
 /* ===================== ADMIN PANEL ===================== */
 #admin-panel {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 24px;
-  margin-bottom: 20px;
-  display: none;
+  background: var(--card-bg); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 22px 24px;
+  margin-bottom: 18px; display: none;
+  border: 1px solid var(--border-light);
+  border-top: 3px solid var(--lahi-orange);
 }
 #admin-panel.visible { display: block; }
 .admin-panel-head {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
 }
-.admin-tabs { display: flex; gap: 4px; background: var(--bg); padding: 4px; border-radius: 8px; }
+.admin-panel-title { font-weight: 800; font-size: 0.95rem; color: var(--lahi-charcoal); display: flex; align-items: center; gap: 8px; }
+.admin-panel-title i { color: var(--lahi-orange); }
+.admin-tabs { display: flex; gap: 3px; background: var(--bg); padding: 4px; border-radius: 9px; }
 .admin-tab {
   background: none; border: none;
-  padding: 7px 16px;
-  font-size: 0.83rem; font-weight: 600;
-  font-family: inherit;
-  color: var(--text-muted);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all var(--transition);
+  padding: 6px 16px; font-size: 0.82rem; font-weight: 600;
+  font-family: inherit; color: var(--text-muted);
+  border-radius: 6px; cursor: pointer; transition: all var(--transition);
 }
-.admin-tab.active { background: white; color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.admin-tab.active { background: white; color: var(--lahi-orange); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
 
 /* USERS TABLE */
-.users-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-.users-table th { padding: 9px 12px; text-align: left; font-size: 0.74rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; background: var(--bg); border-bottom: 1px solid var(--border); }
-.users-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.users-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.users-table th {
+  padding: 9px 12px; text-align: left; font-size: 0.71rem; font-weight: 700;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;
+  background: var(--bg-alt); border-bottom: 1px solid var(--border);
+}
+.users-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
 .users-table tr:last-child td { border-bottom: none; }
 .users-table tr:hover td { background: var(--row-hover); }
 
-/* CONFIG PANEL */
-.config-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.config-section { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-.config-section-head { padding: 12px 14px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.config-section-title { font-weight: 700; font-size: 0.85rem; color: var(--navy); }
+/* TEAM TREE */
+.team-tree { list-style: none; }
+.team-supervisor-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, rgba(232,80,26,0.05), transparent);
+  border-left: 3px solid var(--lahi-orange);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 4px; cursor: pointer;
+}
+.team-supervisor-name { font-weight: 700; color: var(--lahi-charcoal); font-size: 0.88rem; }
+.team-supervisor-label { font-size: 0.7rem; color: var(--lahi-orange); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.team-members { list-style: none; margin-left: 30px; margin-bottom: 8px; }
+.team-member-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 12px; border-left: 2px solid var(--border);
+  margin-bottom: 2px; font-size: 0.84rem; cursor: pointer;
+  border-radius: 0 6px 6px 0; transition: background var(--transition);
+}
+.team-member-row:hover { background: var(--row-hover); }
+.team-member-name { font-weight: 500; color: var(--text); }
+.team-member-email { font-size: 0.72rem; color: var(--text-light); }
+
+/* CONFIG */
+.config-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.config-section { border: 1px solid var(--border); border-radius: 9px; overflow: hidden; }
+.config-section-head {
+  padding: 11px 14px; background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.config-section-title { font-weight: 700; font-size: 0.83rem; color: var(--lahi-charcoal); }
 .config-list { list-style: none; }
-.config-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.config-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px; border-bottom: 1px solid var(--border-light);
+  font-size: 0.84rem;
+}
 .config-item:last-child { border-bottom: none; }
 .config-item-name { font-weight: 500; }
-.btn-config-del { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 3px; transition: color var(--transition); }
+.btn-config-del {
+  background: none; border: none; color: var(--text-light);
+  cursor: pointer; padding: 3px; transition: color var(--transition);
+}
 .btn-config-del:hover { color: var(--danger); }
-.config-add-row { display: flex; gap: 8px; padding: 10px 14px; background: #fafafa; border-top: 1px solid var(--border); }
-.config-add-input { flex: 1; border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-size: 0.83rem; font-family: inherit; outline: none; }
-.config-add-input:focus { border-color: var(--navy); }
-.btn-config-add { background: var(--navy); color: white; border: none; border-radius: 6px; padding: 7px 14px; font-size: 0.8rem; font-weight: 600; font-family: inherit; cursor: pointer; white-space: nowrap; }
+.config-add-row {
+  display: flex; gap: 8px; padding: 10px 14px;
+  background: var(--bg); border-top: 1px solid var(--border);
+}
+.config-add-input {
+  flex: 1; border: 1.5px solid var(--border); border-radius: 6px;
+  padding: 7px 10px; font-size: 0.82rem; font-family: inherit; outline: none;
+}
+.config-add-input:focus { border-color: var(--lahi-orange); }
+.btn-config-add {
+  background: var(--lahi-orange); color: white; border: none;
+  border-radius: 6px; padding: 7px 14px;
+  font-size: 0.79rem; font-weight: 700; font-family: inherit; cursor: pointer;
+}
+.btn-config-add:hover { background: var(--lahi-orange-dark); }
 
-/* STATUS TIMELINE */
-.remarks-history { background: var(--bg); border-radius: 8px; padding: 12px 14px; margin-top: 12px; font-size: 0.82rem; color: var(--text-muted); }
-.remarks-history strong { color: var(--text); }
-
-/* PASSWORD CHANGE NOTICE */
+/* PW NOTICE */
 .pw-notice {
   background: rgba(244,169,31,0.1);
   border: 1px solid rgba(244,169,31,0.4);
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 20px;
-  font-size: 0.85rem;
-  color: #92400E;
+  border-radius: 8px; padding: 12px 16px;
+  margin-bottom: 18px; font-size: 0.84rem; color: #92400E;
   display: flex; align-items: flex-start; gap: 10px;
 }
-.pw-notice i { margin-top: 2px; color: var(--gold); }
+.pw-notice i { margin-top: 2px; color: var(--lahi-amber); flex-shrink: 0; }
 
 /* RESPONSIVE */
 @media (max-width: 1200px) {
@@ -672,83 +725,93 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
 @media (max-width: 900px) {
   #stats-grid { grid-template-columns: repeat(4, 1fr); }
   .config-layout { grid-template-columns: 1fr; }
+  .login-left { display: none; }
+  .login-right { width: 100%; border-left: none; }
 }
 @media (max-width: 768px) {
   #main-content { padding: 14px; }
   #stats-grid { grid-template-columns: repeat(2, 1fr); }
-  #filter-bar { gap: 8px; }
-  .filter-select { min-width: 120px; }
-  .page-title { font-size: 1.3rem; }
+  .filter-select { min-width: 110px; }
+  .page-title { font-size: 1.25rem; }
   .field-row { grid-template-columns: 1fr; }
-  #top-ribbon { padding: 8px 14px; }
+  #top-ribbon { padding: 0 14px; }
   .ribbon-user-info { display: none; }
 }
 @media (max-width: 480px) {
   #stats-grid { grid-template-columns: repeat(2, 1fr); }
   .page-header { flex-direction: column; align-items: flex-start; }
-  .modal { max-width: 100%; }
 }
 
-/* Utility */
 .hidden { display: none !important; }
-.text-center { text-align: center; }
-.mt-2 { margin-top: 8px; }
-.divider { height: 1px; background: var(--border); margin: 16px 0; }
 </style>
 </head>
 <body>
 
-<!-- LOADING OVERLAY -->
+<!-- LOADING -->
 <div id="loading-overlay">
   <div class="spinner"></div>
-  <div id="loading-text">Loading...</div>
+  <div id="loading-text">Loading…</div>
 </div>
 
-<!-- TOAST CONTAINER -->
+<!-- TOASTS -->
 <div id="toast-container"></div>
 
 <!-- ==================== LOGIN PAGE ==================== -->
-<div id="login-page">
-  <div class="login-container">
-    <div class="login-card">
-      <div class="login-header">
-        <div class="login-logo">LAHI</div>
-        <div class="login-title">MEL Task Manager</div>
-        <div class="login-subtitle">Lend A Hand India — Monitoring, Evaluation & Learning</div>
-      </div>
-
-      <div id="login-error" class="error-msg"></div>
-
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input type="email" id="login-email" class="form-input" placeholder="you@lendahandindia.org" autocomplete="email">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <div class="input-wrap">
-          <input type="password" id="login-password" class="form-input" placeholder="Enter password" autocomplete="current-password">
-          <button class="toggle-pw" onclick="togglePw('login-password', this)" type="button" tabindex="-1">
-            <i class="fa-regular fa-eye"></i>
-          </button>
+<div id="login-page" style="display:none">
+  <div class="login-split">
+    <!-- LEFT BRAND PANEL -->
+    <div class="login-left">
+      <div class="login-brand-panel">
+        <div class="login-brand-icon">LAHI</div>
+        <div class="login-brand-name">Lend A Hand India</div>
+        <div class="login-brand-divider"></div>
+        <div class="login-brand-sub">MEL Task Management System<br>Monitoring, Evaluation & Learning</div>
+        <div class="login-features">
+          <div class="login-feature"><i class="fas fa-users-viewfinder"></i> Team-scoped task visibility</div>
+          <div class="login-feature"><i class="fas fa-diagram-project"></i> Section & component tracking</div>
+          <div class="login-feature"><i class="fas fa-bell"></i> Email notifications on updates</div>
+          <div class="login-feature"><i class="fas fa-shield-halved"></i> Role-based access control</div>
+          <div class="login-feature"><i class="fas fa-cloud"></i> Google Sheets backend</div>
         </div>
       </div>
-      <button class="btn-primary" id="login-btn" onclick="doLogin()">
-        <i class="fas fa-sign-in-alt"></i> Sign In
-      </button>
-      <a class="forgot-link" onclick="showForgotModal()">Forgot Password?</a>
+    </div>
+    <!-- RIGHT FORM -->
+    <div class="login-right">
+      <div class="login-form-wrap">
+        <div class="login-form-title">Welcome back</div>
+        <div class="login-form-sub">Sign in with your LAHI email address</div>
+
+        <div id="login-error" class="error-msg"><i class="fas fa-circle-xmark"></i> <span id="login-error-text"></span></div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="login-email" class="form-input" placeholder="you@lendahandindia.org" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrap">
+            <input type="password" id="login-password" class="form-input" placeholder="Enter password" autocomplete="current-password">
+            <button class="toggle-pw" onclick="togglePw('login-password',this)" type="button" tabindex="-1"><i class="fa-regular fa-eye"></i></button>
+          </div>
+        </div>
+        <button class="btn-primary" id="login-btn" onclick="doLogin()">
+          <i class="fas fa-sign-in-alt"></i> &nbsp;Sign In
+        </button>
+        <a class="forgot-link" onclick="showForgotModal()">Forgot password?</a>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ==================== APP SHELL ==================== -->
 <div id="app">
-  <!-- TOP RIBBON -->
+  <!-- RIBBON -->
   <div id="top-ribbon">
     <div class="ribbon-brand">
       <div class="ribbon-logo">LAHI</div>
       <div class="ribbon-brand-text">
         <div class="ribbon-name">Lend A Hand India</div>
-        <div class="ribbon-dept">MEL — Monitoring, Evaluation & Learning</div>
+        <div class="ribbon-dept">MEL — Monitoring, Evaluation &amp; Learning</div>
       </div>
     </div>
     <div class="ribbon-right">
@@ -757,6 +820,7 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
         <div class="ribbon-user-info">
           <div class="ribbon-user-name" id="ribbon-name">User</div>
           <div class="ribbon-user-email" id="ribbon-email">email</div>
+          <div class="ribbon-role-badge" id="ribbon-role">Member</div>
         </div>
       </div>
       <button class="btn-icon" id="admin-btn" title="Admin Panel" onclick="toggleAdminPanel()" style="display:none">
@@ -771,39 +835,77 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- VISIBILITY BANNER -->
+  <div id="visibility-banner" class="hidden">
+    <i class="fas fa-eye"></i>
+    <span id="visibility-text">Viewing tasks for your team</span>
+  </div>
+
+  <!-- MAIN -->
   <div id="main-content">
     <!-- ADMIN PANEL -->
     <div id="admin-panel">
       <div class="admin-panel-head">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-weight:700;font-size:1rem;color:var(--navy)"><i class="fas fa-shield-halved" style="color:var(--gold)"></i> Admin Panel</span>
-        </div>
+        <div class="admin-panel-title"><i class="fas fa-shield-halved"></i> Admin Panel</div>
         <div class="admin-tabs">
-          <button class="admin-tab active" onclick="switchAdminTab('users', this)">Users</button>
-          <button class="admin-tab" onclick="switchAdminTab('config', this)">Config</button>
-          <button class="admin-tab" onclick="switchAdminTab('adduser', this)">Add User</button>
+          <button class="admin-tab active" onclick="switchAdminTab('users',this)">Users</button>
+          <button class="admin-tab" onclick="switchAdminTab('team',this)">Team Structure</button>
+          <button class="admin-tab" onclick="switchAdminTab('config',this)">Config</button>
+          <button class="admin-tab" onclick="switchAdminTab('adduser',this)">Add User</button>
         </div>
       </div>
 
       <!-- Users Tab -->
       <div id="admin-tab-users">
         <div style="overflow-x:auto">
-          <table class="users-table" id="users-table">
-            <thead>
-              <tr>
-                <th>Name</th><th>Email</th><th>Status</th><th>Admin</th><th>Pw Changed</th><th>Last Login</th><th>Actions</th>
-              </tr>
-            </thead>
+          <table class="users-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Pw Changed</th><th>Last Login</th><th>Actions</th></tr></thead>
             <tbody id="users-tbody"></tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Team Structure Tab -->
+      <div id="admin-tab-team" class="hidden">
+        <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:16px">
+          <i class="fas fa-info-circle" style="color:var(--lahi-orange)"></i>
+          Define who reports to whom. Supervisors see tasks of all their subordinates. Members see only their own tasks.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <!-- Current tree -->
+          <div class="config-section">
+            <div class="config-section-head"><div class="config-section-title">Current Team Structure</div>
+              <button class="btn-config-add" onclick="saveTeamStructure()"><i class="fas fa-save"></i> Save</button>
+            </div>
+            <div style="padding:14px;max-height:380px;overflow-y:auto" id="team-tree-display"></div>
+          </div>
+          <!-- Add relationship -->
+          <div class="config-section">
+            <div class="config-section-head"><div class="config-section-title">Add Relationship</div></div>
+            <div style="padding:14px;display:flex;flex-direction:column;gap:12px">
+              <div class="field-group">
+                <label class="field-label">Supervisor</label>
+                <select class="field-select" id="team-supervisor-select"><option value="">Select supervisor…</option></select>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Subordinate</label>
+                <select class="field-select" id="team-member-select"><option value="">Select member…</option></select>
+              </div>
+              <button class="btn-modal-primary" onclick="addTeamRelationship()"><i class="fas fa-plus"></i> Add Relationship</button>
+              <div class="field-group" style="margin-top:8px">
+                <label class="field-label">Remove Subordinate</label>
+                <select class="field-select" id="team-remove-select"><option value="">Select to remove…</option></select>
+                <button class="btn-modal-secondary" style="margin-top:8px;width:100%" onclick="removeTeamMember()"><i class="fas fa-trash"></i> Remove Selected</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Config Tab -->
       <div id="admin-tab-config" class="hidden">
         <div class="config-layout" id="config-layout"></div>
-        <div style="margin-top:16px">
+        <div style="margin-top:14px">
           <button class="btn-modal-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Save Config</button>
         </div>
       </div>
@@ -822,12 +924,12 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
             </div>
           </div>
           <div class="field-group">
-            <label class="field-label" style="display:flex;align-items:center;gap:8px">
+            <label class="field-label" style="display:flex;align-items:center;gap:8px;cursor:pointer">
               <input type="checkbox" id="nu-admin"> Admin Privileges
             </label>
           </div>
           <button class="btn-modal-primary" onclick="addUser()"><i class="fas fa-user-plus"></i> Create User</button>
-          <p style="margin-top:10px;font-size:0.8rem;color:var(--text-muted)">Default password: <strong>Mel@2026</strong></p>
+          <p style="margin-top:10px;font-size:0.78rem;color:var(--text-muted)">Default password: <strong>Mel@2026</strong></p>
         </div>
       </div>
     </div>
@@ -835,32 +937,32 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
     <!-- PAGE HEADER -->
     <div class="page-header">
       <div class="page-title-area">
-        <div>
-          <div class="page-title">Task Dashboard</div>
-          <div class="page-subtitle" id="dash-subtitle">Loading tasks...</div>
-        </div>
         <div class="page-title-logo">LAHI<br>MEL</div>
+        <div>
+          <div class="page-title">Task <span>Dashboard</span></div>
+          <div class="page-subtitle" id="dash-subtitle">Loading tasks…</div>
+        </div>
       </div>
       <button class="btn-add" onclick="openAddTaskModal()">
         <i class="fas fa-plus"></i> Add Task
       </button>
     </div>
 
-    <!-- STATS CARDS -->
+    <!-- STATS -->
     <div id="stats-grid">
-      <div class="stat-card total"><div class="stat-icon"><i class="fas fa-list-check"></i></div><div class="stat-count" id="s-total">0</div><div class="stat-label">Total</div></div>
-      <div class="stat-card completed"><div class="stat-icon"><i class="fas fa-circle-check"></i></div><div class="stat-count" id="s-completed">0</div><div class="stat-label">Completed</div></div>
-      <div class="stat-card pending"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-count" id="s-pending">0</div><div class="stat-label">Pending</div></div>
-      <div class="stat-card delayed"><div class="stat-icon"><i class="fas fa-triangle-exclamation"></i></div><div class="stat-count" id="s-delayed">0</div><div class="stat-label">Delayed</div></div>
-      <div class="stat-card onhold"><div class="stat-icon"><i class="fas fa-pause-circle"></i></div><div class="stat-count" id="s-onhold">0</div><div class="stat-label">On Hold</div></div>
-      <div class="stat-card overdue"><div class="stat-icon"><i class="fas fa-fire"></i></div><div class="stat-count" id="s-overdue">0</div><div class="stat-label">Overdue</div></div>
-      <div class="stat-card highpri"><div class="stat-icon"><i class="fas fa-arrow-up"></i></div><div class="stat-count" id="s-highpri">0</div><div class="stat-label">High Priority</div></div>
+      <div class="stat-card total">   <div class="stat-icon"><i class="fas fa-list-check"></i></div>    <div class="stat-count" id="s-total">0</div>    <div class="stat-label">Total</div></div>
+      <div class="stat-card completed"><div class="stat-icon"><i class="fas fa-circle-check"></i></div> <div class="stat-count" id="s-completed">0</div> <div class="stat-label">Completed</div></div>
+      <div class="stat-card pending"> <div class="stat-icon"><i class="fas fa-clock"></i></div>         <div class="stat-count" id="s-pending">0</div>   <div class="stat-label">Pending</div></div>
+      <div class="stat-card delayed"> <div class="stat-icon"><i class="fas fa-triangle-exclamation"></i></div><div class="stat-count" id="s-delayed">0</div><div class="stat-label">Delayed</div></div>
+      <div class="stat-card onhold">  <div class="stat-icon"><i class="fas fa-pause-circle"></i></div>  <div class="stat-count" id="s-onhold">0</div>    <div class="stat-label">On Hold</div></div>
+      <div class="stat-card overdue"> <div class="stat-icon"><i class="fas fa-fire"></i></div>          <div class="stat-count" id="s-overdue">0</div>   <div class="stat-label">Overdue</div></div>
+      <div class="stat-card highpri"> <div class="stat-icon"><i class="fas fa-arrow-up"></i></div>      <div class="stat-count" id="s-highpri">0</div>   <div class="stat-label">High Priority</div></div>
     </div>
 
-    <!-- FILTER BAR -->
+    <!-- FILTERS -->
     <div id="filter-bar">
-      <span class="filter-label"><i class="fas fa-filter"></i> Filter:</span>
-      <select class="filter-select" id="f-section" onchange="applyFilters()"><option value="">All Sections</option></select>
+      <span class="filter-label"><i class="fas fa-filter" style="color:var(--lahi-orange)"></i> Filter:</span>
+      <select class="filter-select" id="f-section"   onchange="applyFilters()"><option value="">All Sections</option></select>
       <select class="filter-select" id="f-component" onchange="applyFilters()"><option value="">All Components</option></select>
       <select class="filter-select" id="f-status" onchange="applyFilters()">
         <option value="">All Statuses</option>
@@ -871,11 +973,11 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
         <option value="">All Priorities</option>
         <option>High</option><option>Medium</option><option>Low</option>
       </select>
-      <select class="filter-select" id="f-owner" onchange="applyFilters()"><option value="">All Owners</option></select>
+      <select class="filter-select" id="f-assignedto" onchange="applyFilters()"><option value="">All Members</option></select>
       <button class="btn-clear" onclick="clearFilters()"><i class="fas fa-xmark"></i> Clear</button>
     </div>
 
-    <!-- TASK TABLE -->
+    <!-- TABLE -->
     <div id="table-wrap">
       <div class="table-header">
         <div class="table-title">Tasks</div>
@@ -890,6 +992,7 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
               <th onclick="sortTable('Section')">Section <i class="fas fa-sort sort-icon"></i></th>
               <th onclick="sortTable('Component')">Component <i class="fas fa-sort sort-icon"></i></th>
               <th onclick="sortTable('AssignedTo')">Assigned To <i class="fas fa-sort sort-icon"></i></th>
+              <th onclick="sortTable('Owner')">Assigned By <i class="fas fa-sort sort-icon"></i></th>
               <th onclick="sortTable('DueDate')">Due Date <i class="fas fa-sort sort-icon"></i></th>
               <th onclick="sortTable('Priority')">Priority <i class="fas fa-sort sort-icon"></i></th>
               <th onclick="sortTable('Status')">Status <i class="fas fa-sort sort-icon"></i></th>
@@ -905,43 +1008,41 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
 
 <!-- ==================== MODALS ==================== -->
 
-<!-- ADD/EDIT TASK MODAL -->
+<!-- ADD/EDIT TASK -->
 <div class="modal-backdrop" id="task-modal-backdrop">
   <div class="modal wide">
     <div class="modal-head">
-      <div class="modal-title" id="task-modal-title">Add Task</div>
+      <div class="modal-title"><i class="fas fa-plus-circle modal-title-icon"></i> <span id="task-modal-title">Add New Task</span></div>
       <button class="modal-close" onclick="closeModal('task-modal-backdrop')"><i class="fas fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <div class="field-row">
-        <div class="field-group full">
-          <label class="field-label">Title <span style="color:var(--red)">*</span></label>
-          <input type="text" class="field-input" id="t-title" placeholder="Task title">
-          <div class="field-error" id="t-title-err">Title is required</div>
-        </div>
+      <div class="field-group full">
+        <label class="field-label">Title <span style="color:var(--danger)">*</span></label>
+        <input type="text" class="field-input" id="t-title" placeholder="What needs to be done?">
+        <div class="field-error" id="t-title-err">Title is required</div>
       </div>
       <div class="field-group">
         <label class="field-label">Description</label>
-        <textarea class="field-textarea" id="t-desc" placeholder="Task description (optional)"></textarea>
+        <textarea class="field-textarea" id="t-desc" placeholder="More details (optional)…"></textarea>
       </div>
       <div class="field-row">
         <div class="field-group">
           <label class="field-label">Section</label>
-          <select class="field-select" id="t-section" onchange="loadComponentsForTask()"><option value="">Select Section</option></select>
+          <select class="field-select" id="t-section" onchange="loadComponentsForTask()"><option value="">Select section</option></select>
         </div>
         <div class="field-group">
           <label class="field-label">Component</label>
-          <select class="field-select" id="t-component"><option value="">Select Component</option></select>
+          <select class="field-select" id="t-component"><option value="">Select component</option></select>
         </div>
       </div>
       <div class="field-row">
         <div class="field-group">
-          <label class="field-label">Assigned To</label>
-          <input type="text" class="field-input" id="t-assigned" placeholder="Person's name">
+          <label class="field-label">Assigned To <span style="color:var(--danger)">*</span></label>
+          <select class="field-select" id="t-assigned"><option value="">Select team member</option></select>
         </div>
         <div class="field-group">
-          <label class="field-label">Owner</label>
-          <input type="text" class="field-input" id="t-owner" placeholder="Task owner">
+          <label class="field-label">Assigned By (Supervisor)</label>
+          <select class="field-select" id="t-owner"><option value="">Select supervisor</option></select>
         </div>
       </div>
       <div class="field-row">
@@ -966,244 +1067,222 @@ tbody td { padding: 11px 14px; font-size: 0.875rem; color: var(--text); vertical
         <div class="field-group">
           <label class="field-label">Status</label>
           <select class="field-select" id="t-status">
-            <option value="Not Started">Not Started</option>
-            <option value="Pending">Pending</option>
-            <option value="Completed">Completed</option>
-            <option value="Delayed">Delayed</option>
-            <option value="On Hold">On Hold</option>
-            <option value="Overdue">Overdue</option>
+            <option>Not Started</option><option>Pending</option><option>Completed</option>
+            <option>Delayed</option><option>On Hold</option><option>Overdue</option>
           </select>
         </div>
       </div>
       <div class="field-group">
         <label class="field-label">Remarks</label>
-        <textarea class="field-textarea" id="t-remarks" placeholder="Any initial remarks..."></textarea>
+        <textarea class="field-textarea" id="t-remarks" placeholder="Any initial notes…"></textarea>
       </div>
     </div>
     <div class="modal-foot">
       <button class="btn-modal-secondary" onclick="closeModal('task-modal-backdrop')">Cancel</button>
-      <button class="btn-modal-primary" id="task-submit-btn" onclick="submitTask()">
-        <i class="fas fa-plus"></i> Create Task
-      </button>
+      <button class="btn-modal-primary" id="task-submit-btn" onclick="submitTask()"><i class="fas fa-plus"></i> Create Task</button>
     </div>
   </div>
 </div>
 
-<!-- UPDATE STATUS MODAL -->
+<!-- UPDATE STATUS -->
 <div class="modal-backdrop" id="update-modal-backdrop">
   <div class="modal">
     <div class="modal-head">
-      <div class="modal-title">Update Task Status</div>
+      <div class="modal-title"><i class="fas fa-rotate modal-title-icon"></i> Update Task Status</div>
       <button class="modal-close" onclick="closeModal('update-modal-backdrop')"><i class="fas fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <div id="update-task-info" style="background:var(--bg);border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:0.85rem;">
-        <div style="font-weight:700;color:var(--navy)" id="update-task-title">Task Title</div>
-        <div style="color:var(--text-muted);margin-top:2px" id="update-task-id">ID</div>
+      <div style="background:var(--bg);border-radius:8px;padding:12px 14px;margin-bottom:16px;border-left:3px solid var(--lahi-orange)">
+        <div style="font-weight:700;color:var(--lahi-charcoal)" id="update-task-title">Task</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px" id="update-task-id"></div>
       </div>
       <div class="field-group">
         <label class="field-label">Current Status</label>
-        <div id="update-current-status" style="font-size:0.88rem;padding:4px 0;font-weight:600;color:var(--text-muted)"></div>
+        <div id="update-current-status" style="font-size:0.88rem;font-weight:600;color:var(--text-muted);padding:4px 0"></div>
       </div>
       <div class="field-group">
-        <label class="field-label">New Status <span style="color:var(--red)">*</span></label>
+        <label class="field-label">New Status <span style="color:var(--danger)">*</span></label>
         <select class="field-select" id="update-new-status">
-          <option value="Not Started">Not Started</option>
-          <option value="Pending">Pending</option>
-          <option value="Completed">Completed</option>
-          <option value="Delayed">Delayed</option>
-          <option value="On Hold">On Hold</option>
-          <option value="Overdue">Overdue</option>
+          <option>Not Started</option><option>Pending</option><option>Completed</option>
+          <option>Delayed</option><option>On Hold</option><option>Overdue</option>
         </select>
       </div>
       <div class="field-group">
         <label class="field-label">Remarks</label>
-        <textarea class="field-textarea" id="update-remarks" placeholder="Add a remark about this status update..."></textarea>
+        <textarea class="field-textarea" id="update-remarks" placeholder="Add a note about this update…"></textarea>
       </div>
     </div>
     <div class="modal-foot">
       <button class="btn-modal-secondary" onclick="closeModal('update-modal-backdrop')">Cancel</button>
-      <button class="btn-modal-primary" onclick="submitStatusUpdate()">
-        <i class="fas fa-save"></i> Update Status
-      </button>
+      <button class="btn-modal-primary" onclick="submitStatusUpdate()"><i class="fas fa-save"></i> Update Status</button>
     </div>
   </div>
 </div>
 
-<!-- CHANGE PASSWORD MODAL -->
+<!-- CHANGE PASSWORD -->
 <div class="modal-backdrop" id="changepw-modal-backdrop">
   <div class="modal">
     <div class="modal-head">
-      <div class="modal-title">Change Password</div>
+      <div class="modal-title"><i class="fas fa-lock modal-title-icon"></i> Change Password</div>
       <button class="modal-close" id="changepw-close" onclick="closeModal('changepw-modal-backdrop')"><i class="fas fa-xmark"></i></button>
     </div>
     <div class="modal-body">
       <div class="pw-notice" id="first-login-notice" style="display:none">
         <i class="fas fa-triangle-exclamation"></i>
-        <div>You are using the default password. Please set a new password before continuing. Minimum 6 characters required.</div>
+        <div>You are using the default password. You must set a new password before accessing the dashboard. Minimum 6 characters.</div>
       </div>
       <div class="field-group">
         <label class="field-label">Current Password</label>
         <div class="input-wrap">
-          <input type="password" class="field-input" id="cp-current" placeholder="Current password">
-          <button class="toggle-pw" onclick="togglePw('cp-current', this)" type="button" tabindex="-1" style="color:var(--text-muted)"><i class="fa-regular fa-eye"></i></button>
+          <input type="password" class="field-input" id="cp-current" placeholder="Your current password">
+          <button class="toggle-pw" onclick="togglePw('cp-current',this)" type="button" tabindex="-1" style="color:var(--text-muted)"><i class="fa-regular fa-eye"></i></button>
         </div>
       </div>
       <div class="field-group">
         <label class="field-label">New Password</label>
         <div class="input-wrap">
-          <input type="password" class="field-input" id="cp-new" placeholder="Min 6 characters">
-          <button class="toggle-pw" onclick="togglePw('cp-new', this)" type="button" tabindex="-1" style="color:var(--text-muted)"><i class="fa-regular fa-eye"></i></button>
+          <input type="password" class="field-input" id="cp-new" placeholder="Minimum 6 characters">
+          <button class="toggle-pw" onclick="togglePw('cp-new',this)" type="button" tabindex="-1" style="color:var(--text-muted)"><i class="fa-regular fa-eye"></i></button>
         </div>
       </div>
       <div class="field-group">
         <label class="field-label">Confirm New Password</label>
         <div class="input-wrap">
           <input type="password" class="field-input" id="cp-confirm" placeholder="Repeat new password">
-          <button class="toggle-pw" onclick="togglePw('cp-confirm', this)" type="button" tabindex="-1" style="color:var(--text-muted)"><i class="fa-regular fa-eye"></i></button>
+          <button class="toggle-pw" onclick="togglePw('cp-confirm',this)" type="button" tabindex="-1" style="color:var(--text-muted)"><i class="fa-regular fa-eye"></i></button>
         </div>
       </div>
-      <div class="error-msg" id="cp-error" style="color:#991B1B"></div>
+      <div class="error-msg" id="cp-error" style="margin-bottom:0"><i class="fas fa-circle-xmark"></i> <span id="cp-error-text"></span></div>
     </div>
     <div class="modal-foot">
       <button class="btn-modal-secondary" id="cp-cancel" onclick="closeModal('changepw-modal-backdrop')">Cancel</button>
-      <button class="btn-modal-primary" onclick="submitChangePassword()">
-        <i class="fas fa-lock"></i> Change Password
-      </button>
+      <button class="btn-modal-primary" onclick="submitChangePassword()"><i class="fas fa-lock"></i> Change Password</button>
     </div>
   </div>
 </div>
 
-<!-- FORGOT PASSWORD MODAL -->
+<!-- FORGOT PASSWORD -->
 <div class="modal-backdrop" id="forgot-modal-backdrop">
   <div class="modal">
     <div class="modal-head">
-      <div class="modal-title">Reset Password</div>
+      <div class="modal-title"><i class="fas fa-rotate-right modal-title-icon"></i> Reset Password</div>
       <button class="modal-close" onclick="closeModal('forgot-modal-backdrop')"><i class="fas fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:16px">Enter your email. Your password will be reset to the default <strong>Mel@2026</strong>.</p>
+      <p style="font-size:0.87rem;color:var(--text-muted);margin-bottom:16px">Enter your registered email. Your password will be reset to the default <strong style="color:var(--lahi-orange)">Mel@2026</strong>.</p>
       <div class="field-group">
         <label class="field-label">Email Address</label>
         <input type="email" class="field-input" id="forgot-email" placeholder="you@lendahandindia.org">
       </div>
-      <div class="error-msg" id="forgot-error" style="color:#991B1B"></div>
+      <div class="error-msg" id="forgot-error"><i class="fas fa-circle-xmark"></i> <span id="forgot-error-text"></span></div>
     </div>
     <div class="modal-foot">
       <button class="btn-modal-secondary" onclick="closeModal('forgot-modal-backdrop')">Cancel</button>
-      <button class="btn-modal-primary" onclick="submitForgotPassword()">
-        <i class="fas fa-rotate-right"></i> Reset Password
-      </button>
+      <button class="btn-modal-primary" onclick="submitForgotPassword()"><i class="fas fa-rotate-right"></i> Reset Password</button>
     </div>
   </div>
 </div>
 
-<!-- DELETE CONFIRM MODAL -->
+<!-- DELETE CONFIRM -->
 <div class="modal-backdrop" id="delete-modal-backdrop">
   <div class="modal">
     <div class="modal-head">
-      <div class="modal-title">Delete Task</div>
+      <div class="modal-title"><i class="fas fa-trash modal-title-icon" style="color:var(--danger)"></i> Delete Task</div>
       <button class="modal-close" onclick="closeModal('delete-modal-backdrop')"><i class="fas fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <p style="font-size:0.9rem;color:var(--text)">Are you sure you want to delete task <strong id="delete-task-title-display">this task</strong>? This action cannot be undone.</p>
+      <p style="font-size:0.9rem;color:var(--text)">Are you sure you want to permanently delete <strong id="delete-task-title-display"></strong>? This cannot be undone.</p>
     </div>
     <div class="modal-foot">
       <button class="btn-modal-secondary" onclick="closeModal('delete-modal-backdrop')">Cancel</button>
-      <button class="btn-modal-danger" onclick="confirmDelete()">
-        <i class="fas fa-trash"></i> Delete Task
-      </button>
+      <button class="btn-modal-danger" onclick="confirmDelete()"><i class="fas fa-trash"></i> Delete</button>
     </div>
   </div>
 </div>
 
 <!-- ==================== JAVASCRIPT ==================== -->
 <script>
-// ===================== CONFIGURATION =====================
-// Replace this with your Google Apps Script Web App URL after deployment
-const API_URL = 'https://script.google.com/macros/s/AKfycbw-3AbCTqAOdCk2Q5puXHTd9_JLVI-45L5-EvPG4zrLSVPDyO_3JHvVGJNovv22xW1Q/exec';
+// ─────────────────────────────────────────────
+// CONFIG — paste your Apps Script URL here
+// ─────────────────────────────────────────────
+const API_URL = 'https://script.google.com/macros/s/AKfycbyFPwXxrtaNgjDE5JmiLO_N3_eKGYT8bRAXHVAMVSTWSmiiKA9nyoAdemnlgt_PM9qxmg/exec';
 
-// ===================== STATE =====================
-let session = null;
-let allTasks = [];
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let session       = null;
+let allTasks      = [];
+let visibleTasks  = [];     // tasks filtered by team visibility
 let filteredTasks = [];
-let configData = {};      // { "SectionName": ["comp1","comp2"] }
-let allUsers = [];
-let currentEditTaskId = null;
+let configData    = {};     // { Section: [comp,...] }
+let teamData      = {};     // { supervisorName: [memberName,...] }
+let allUsers      = [];
+let supervisorList = [];    // names of all supervisors
+let memberList     = [];    // names of all members
+
+let currentEditTaskId   = null;
 let currentDeleteTaskId = null;
 let sortField = 'CreatedAt';
-let sortAsc = false;
+let sortAsc   = false;
 
-// ===================== UTILS =====================
-function showLoading(text = 'Loading...') {
-  document.getElementById('loading-text').textContent = text;
-  document.getElementById('loading-overlay').classList.remove('hidden');
-}
-function hideLoading() {
-  document.getElementById('loading-overlay').classList.add('hidden');
-}
+// ─────────────────────────────────────────────
+// HARDCODED ADMINS (always have full access)
+// ─────────────────────────────────────────────
+const ADMIN_NAMES = ['Akash Patki', 'Samruddhi Gole', 'Alim Shaikh'];
 
-function toast(msg, type = 'info') {
+// ─────────────────────────────────────────────
+// UTILS
+// ─────────────────────────────────────────────
+function showLoading(t='Loading…') { document.getElementById('loading-text').textContent=t; document.getElementById('loading-overlay').classList.remove('hidden'); }
+function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
+
+function toast(msg, type='info') {
+  const icons = { success:'fa-circle-check', error:'fa-circle-xmark', info:'fa-circle-info' };
   const el = document.createElement('div');
   el.className = `toast ${type}`;
-  const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
-  el.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> ${msg}`;
+  el.innerHTML = `<i class="fas ${icons[type]||icons.info}"></i> ${msg}`;
   document.getElementById('toast-container').appendChild(el);
-  setTimeout(() => {
-    el.style.animation = 'slideOut 0.3s ease forwards';
-    setTimeout(() => el.remove(), 300);
-  }, 3500);
+  setTimeout(() => { el.style.animation='slideOut 0.3s ease forwards'; setTimeout(()=>el.remove(),300); }, 3500);
 }
 
 async function apiCall(payload) {
   const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
+    method:'POST', headers:{'Content-Type':'text/plain'},
     body: JSON.stringify(payload)
   });
-  const data = await res.json();
-  return data;
+  return res.json();
 }
 
 function togglePw(id, btn) {
   const inp = document.getElementById(id);
-  if (inp.type === 'password') {
-    inp.type = 'text';
-    btn.innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
-  } else {
-    inp.type = 'password';
-    btn.innerHTML = '<i class="fa-regular fa-eye"></i>';
-  }
+  inp.type = inp.type==='password' ? 'text' : 'password';
+  btn.innerHTML = inp.type==='password' ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
 }
-
-function openModal(id) {
-  document.getElementById(id).classList.add('open');
-}
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-}
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 function fmtDate(d) {
   if (!d) return '—';
-  try { return new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }); }
+  try { return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
   catch { return d; }
 }
-
-function statusBadge(status) {
-  const map = {
-    'Completed': 'completed', 'Pending': 'pending', 'Delayed': 'delayed',
-    'On Hold': 'onhold', 'Overdue': 'overdue', 'Not Started': 'notstarted'
-  };
-  return `<span class="badge badge-${map[status] || 'notstarted'}">${status || 'Not Started'}</span>`;
+function statusBadge(s) {
+  const m = { 'Completed':'completed','Pending':'pending','Delayed':'delayed','On Hold':'onhold','Overdue':'overdue','Not Started':'notstarted' };
+  return `<span class="badge badge-${m[s]||'notstarted'}">${s||'Not Started'}</span>`;
 }
 function priorityBadge(p) {
-  const map = { 'High': 'high', 'Medium': 'medium', 'Low': 'low' };
-  return `<span class="badge badge-${map[p] || 'medium'}">${p || 'Medium'}</span>`;
+  const m = { 'High':'high','Medium':'medium','Low':'low' };
+  return `<span class="badge badge-${m[p]||'medium'}">${p||'Medium'}</span>`;
+}
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
-// ===================== SESSION =====================
-function saveSession(user) {
-  session = { ...user, expiry: Date.now() + 7 * 24 * 60 * 60 * 1000 };
+// ─────────────────────────────────────────────
+// SESSION
+// ─────────────────────────────────────────────
+function saveSession(u) {
+  session = { ...u, expiry: Date.now() + 7*24*60*60*1000 };
   localStorage.setItem('lahi_session', JSON.stringify(session));
 }
 function loadSession() {
@@ -1213,221 +1292,304 @@ function loadSession() {
   if (s.expiry < Date.now()) { localStorage.removeItem('lahi_session'); return null; }
   return s;
 }
-function clearSession() {
-  localStorage.removeItem('lahi_session');
-  session = null;
+function clearSession() { localStorage.removeItem('lahi_session'); session = null; }
+
+// ─────────────────────────────────────────────
+// TEAM VISIBILITY LOGIC
+// ─────────────────────────────────────────────
+function getVisibleTaskNames() {
+  // Returns array of member names whose tasks the logged-in user can see
+  if (!session) return [];
+  const userName = session.name;
+
+  // Admins see everything
+  if (session.isAdmin || ADMIN_NAMES.includes(userName)) return null; // null = all
+
+  // Check if this user is a supervisor
+  const mySubordinates = teamData[userName] || [];
+  if (mySubordinates.length > 0) {
+    // Supervisor: see own tasks + all subordinates' tasks
+    return [userName, ...mySubordinates];
+  }
+
+  // Regular member: see only own tasks
+  return [userName];
 }
 
-// ===================== AUTH =====================
+function filterTasksByVisibility(tasks) {
+  const visible = getVisibleTaskNames();
+  if (visible === null) return tasks; // admin — all
+  return tasks.filter(t => visible.includes(t.AssignedTo));
+}
+
+function buildVisibilityBanner() {
+  const banner = document.getElementById('visibility-banner');
+  const text   = document.getElementById('visibility-text');
+  const visible = getVisibleTaskNames();
+
+  if (visible === null) {
+    banner.classList.add('hidden');
+    return;
+  }
+  banner.classList.remove('hidden');
+  const mySubordinates = teamData[session.name] || [];
+  if (mySubordinates.length > 0) {
+    text.innerHTML = `<strong>Supervisor view</strong> — You are seeing tasks for: ${visible.map(n=>`<strong>${escHtml(n)}</strong>`).join(', ')}`;
+  } else {
+    text.innerHTML = `<strong>Member view</strong> — You are seeing only tasks assigned to <strong>${escHtml(session.name)}</strong>`;
+  }
+}
+
+// ─────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────
 async function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
+  const email    = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
-  const errEl = document.getElementById('login-error');
+  const errEl    = document.getElementById('login-error');
+  const errTxt   = document.getElementById('login-error-text');
   errEl.classList.remove('visible');
 
-  if (!email || !password) { errEl.textContent = 'Please enter email and password.'; errEl.classList.add('visible'); return; }
-  if (!email.endsWith('@lendahandindia.org')) { errEl.textContent = 'Email must be @lendahandindia.org domain.'; errEl.classList.add('visible'); return; }
+  if (!email || !password) { errTxt.textContent='Please enter email and password.'; errEl.classList.add('visible'); return; }
+  if (!email.endsWith('@lendahandindia.org')) { errTxt.textContent='Email must be @lendahandindia.org domain.'; errEl.classList.add('visible'); return; }
 
   const btn = document.getElementById('login-btn');
-  btn.disabled = true; btn.textContent = 'Signing in...';
-  showLoading('Verifying credentials...');
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> &nbsp;Signing in…';
+  showLoading('Verifying credentials…');
 
   try {
-    const res = await apiCall({ action: 'AUTH_LOGIN', email, password });
+    const res = await apiCall({ action:'AUTH_LOGIN', email, password });
     if (res.success) {
       const user = res.user;
-      if (!user.isActive) {
-        errEl.textContent = 'Your account is inactive. Contact admin.'; errEl.classList.add('visible');
-        hideLoading(); btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In'; return;
-      }
+      if (!user.isActive) { errTxt.textContent='Your account is inactive. Contact admin.'; errEl.classList.add('visible'); hideLoading(); btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> &nbsp;Sign In'; return; }
       saveSession(user);
-      if (!user.passwordChanged) {
-        hideLoading(); btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
-        showChangePwModal(true); return;
-      }
+      if (!user.passwordChanged) { hideLoading(); btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> &nbsp;Sign In'; showChangePwModal(true); return; }
       await initDashboard(user);
     } else {
-      errEl.textContent = res.message || 'Invalid email or password.'; errEl.classList.add('visible');
+      errTxt.textContent = res.message||'Invalid email or password.'; errEl.classList.add('visible');
     }
-  } catch (e) {
-    errEl.textContent = 'Connection error. Please check your network or API URL.'; errEl.classList.add('visible');
-    console.error(e);
+  } catch(e) {
+    errTxt.textContent = 'Connection error. Check your network or API URL.'; errEl.classList.add('visible'); console.error(e);
   }
-  hideLoading(); btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+  hideLoading(); btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> &nbsp;Sign In';
 }
 
-document.getElementById('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-document.getElementById('login-email').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-password').focus(); });
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('login-password').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+  document.getElementById('login-email').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('login-password').focus(); });
+});
 
 async function doLogout() {
   clearSession();
-  allTasks = []; filteredTasks = []; configData = {}; allUsers = [];
+  allTasks=[]; visibleTasks=[]; filteredTasks=[]; configData={}; teamData={}; allUsers=[];
   document.getElementById('app').classList.remove('visible');
-  document.getElementById('login-page').style.display = 'flex';
-  document.getElementById('login-email').value = '';
-  document.getElementById('login-password').value = '';
+  document.getElementById('login-page').style.display='flex';
+  document.getElementById('login-email').value='';
+  document.getElementById('login-password').value='';
   document.getElementById('login-error').classList.remove('visible');
-  toast('Logged out successfully.', 'info');
+  toast('Logged out successfully.','info');
 }
 
-// ===================== CHANGE PASSWORD =====================
-function showChangePwModal(firstLogin = false) {
+// ─────────────────────────────────────────────
+// CHANGE PASSWORD
+// ─────────────────────────────────────────────
+function showChangePwModal(firstLogin=false) {
   document.getElementById('first-login-notice').style.display = firstLogin ? 'flex' : 'none';
   document.getElementById('changepw-close').style.display = firstLogin ? 'none' : 'flex';
   document.getElementById('cp-cancel').style.display = firstLogin ? 'none' : 'flex';
-  document.getElementById('cp-current').value = '';
-  document.getElementById('cp-new').value = '';
-  document.getElementById('cp-confirm').value = '';
+  ['cp-current','cp-new','cp-confirm'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('cp-error').classList.remove('visible');
   openModal('changepw-modal-backdrop');
 }
 
 async function submitChangePassword() {
   const current = document.getElementById('cp-current').value;
-  const newPw = document.getElementById('cp-new').value;
+  const newPw   = document.getElementById('cp-new').value;
   const confirm = document.getElementById('cp-confirm').value;
-  const errEl = document.getElementById('cp-error');
+  const errEl   = document.getElementById('cp-error');
+  const errTxt  = document.getElementById('cp-error-text');
   errEl.classList.remove('visible');
 
-  if (!current || !newPw || !confirm) { errEl.textContent = 'All fields are required.'; errEl.classList.add('visible'); return; }
-  if (newPw.length < 6) { errEl.textContent = 'New password must be at least 6 characters.'; errEl.classList.add('visible'); return; }
-  if (newPw !== confirm) { errEl.textContent = 'Passwords do not match.'; errEl.classList.add('visible'); return; }
+  if (!current||!newPw||!confirm) { errTxt.textContent='All fields required.'; errEl.classList.add('visible'); return; }
+  if (newPw.length<6) { errTxt.textContent='Password must be at least 6 characters.'; errEl.classList.add('visible'); return; }
+  if (newPw!==confirm) { errTxt.textContent='Passwords do not match.'; errEl.classList.add('visible'); return; }
 
-  showLoading('Changing password...');
+  showLoading('Changing password…');
   try {
-    const res = await apiCall({ action: 'CHANGE_PASSWORD', email: session.email, oldPassword: current, newPassword: newPw });
+    const res = await apiCall({ action:'CHANGE_PASSWORD', email:session.email, oldPassword:current, newPassword:newPw });
     if (res.success) {
       session.passwordChanged = true;
       localStorage.setItem('lahi_session', JSON.stringify(session));
       closeModal('changepw-modal-backdrop');
-      toast('Password changed successfully!', 'success');
-      // If first login, now load dashboard
-      if (!document.getElementById('app').classList.contains('visible')) {
-        await initDashboard(session);
-      }
-    } else {
-      errEl.textContent = res.message || 'Failed to change password.'; errEl.classList.add('visible');
-    }
-  } catch (e) { errEl.textContent = 'Connection error.'; errEl.classList.add('visible'); }
+      toast('Password changed successfully!','success');
+      if (!document.getElementById('app').classList.contains('visible')) await initDashboard(session);
+    } else { errTxt.textContent=res.message||'Failed.'; errEl.classList.add('visible'); }
+  } catch { errTxt.textContent='Connection error.'; errEl.classList.add('visible'); }
   hideLoading();
 }
 
-// ===================== FORGOT PASSWORD =====================
+// ─────────────────────────────────────────────
+// FORGOT PASSWORD
+// ─────────────────────────────────────────────
 function showForgotModal() { openModal('forgot-modal-backdrop'); }
 async function submitForgotPassword() {
-  const email = document.getElementById('forgot-email').value.trim();
-  const errEl = document.getElementById('forgot-error');
+  const email  = document.getElementById('forgot-email').value.trim();
+  const errEl  = document.getElementById('forgot-error');
+  const errTxt = document.getElementById('forgot-error-text');
   errEl.classList.remove('visible');
-  if (!email || !email.endsWith('@lendahandindia.org')) { errEl.textContent = 'Enter a valid @lendahandindia.org email.'; errEl.classList.add('visible'); return; }
-  showLoading('Resetting password...');
+  if (!email||!email.endsWith('@lendahandindia.org')) { errTxt.textContent='Enter a valid @lendahandindia.org email.'; errEl.classList.add('visible'); return; }
+  showLoading('Resetting password…');
   try {
-    const res = await apiCall({ action: 'RESET_PASSWORD', email });
-    if (res.success) {
-      closeModal('forgot-modal-backdrop');
-      toast('Password reset to Mel@2026. Please login and change it.', 'info');
-    } else { errEl.textContent = res.message || 'Failed to reset.'; errEl.classList.add('visible'); }
-  } catch { errEl.textContent = 'Connection error.'; errEl.classList.add('visible'); }
+    const res = await apiCall({ action:'RESET_PASSWORD', email });
+    if (res.success) { closeModal('forgot-modal-backdrop'); toast('Password reset to Mel@2026. Login and change it.','info'); }
+    else { errTxt.textContent=res.message||'Failed.'; errEl.classList.add('visible'); }
+  } catch { errTxt.textContent='Connection error.'; errEl.classList.add('visible'); }
   hideLoading();
 }
 
-// ===================== DASHBOARD INIT =====================
+// ─────────────────────────────────────────────
+// DASHBOARD INIT
+// ─────────────────────────────────────────────
 async function initDashboard(user) {
   session = user;
-  showLoading('Loading dashboard...');
+  showLoading('Loading dashboard…');
 
   document.getElementById('login-page').style.display = 'none';
   document.getElementById('app').classList.add('visible');
 
   // Ribbon
-  document.getElementById('ribbon-name').textContent = user.name || user.email;
+  document.getElementById('ribbon-name').textContent  = user.name || user.email;
   document.getElementById('ribbon-email').textContent = user.email;
-  document.getElementById('ribbon-avatar').textContent = (user.name || user.email).charAt(0).toUpperCase();
+  document.getElementById('ribbon-avatar').textContent= (user.name||user.email).charAt(0).toUpperCase();
 
-  if (user.isAdmin) {
-    document.getElementById('admin-btn').style.display = 'flex';
-  }
+  const isSuperAdmin = user.isAdmin || ADMIN_NAMES.includes(user.name);
+  document.getElementById('ribbon-role').textContent  = isSuperAdmin ? 'Admin' : 'Member';
+  if (isSuperAdmin) document.getElementById('admin-btn').style.display = 'flex';
 
   try {
-    const [tasksRes, configRes] = await Promise.all([
-      apiCall({ action: 'GET_TASKS' }),
-      apiCall({ action: 'GET_CONFIG' })
+    const [tasksRes, configRes, teamRes] = await Promise.all([
+      apiCall({ action:'GET_TASKS' }),
+      apiCall({ action:'GET_CONFIG' }),
+      apiCall({ action:'GET_TEAM' })
     ]);
-    if (tasksRes.success) { allTasks = tasksRes.tasks || []; }
-    if (configRes.success) { configData = configRes.config || {}; }
+    if (tasksRes.success) allTasks   = tasksRes.tasks   || [];
+    if (configRes.success) configData = configRes.config || {};
+    if (teamRes.success)   teamData   = teamRes.team     || {};
+
+    // Build member/supervisor lists from team data
+    buildPeopleLists();
     populateFilterDropdowns();
+    populateTaskFormDropdowns();
+    buildVisibilityBanner();
+
+    // Apply visibility filtering
+    visibleTasks = filterTasksByVisibility(allTasks);
     applyFilters();
-    if (user.isAdmin) { await loadUsers(); }
-  } catch (e) { toast('Failed to load data. Check API URL configuration.', 'error'); console.error(e); }
+    updateStats(visibleTasks);
+
+    if (isSuperAdmin) await loadUsers();
+  } catch(e) { toast('Failed to load data. Check API URL configuration.','error'); console.error(e); }
 
   hideLoading();
 }
 
-// ===================== FILTERS & TABLE =====================
-function populateFilterDropdowns() {
-  const sections = Object.keys(configData);
-  const owners = [...new Set(allTasks.map(t => t.Owner).filter(Boolean))];
+function buildPeopleLists() {
+  // Collect all named people from teamData and allUsers
+  const supervisors = new Set(Object.keys(teamData));
+  const members = new Set();
+  Object.values(teamData).forEach(arr => arr.forEach(m => members.add(m)));
+  // Also add from users
+  allUsers.forEach(u => { if (u.Name) members.add(u.Name); });
 
-  const fSection = document.getElementById('f-section');
-  fSection.innerHTML = '<option value="">All Sections</option>' + sections.map(s => `<option>${s}</option>`).join('');
-
-  const fOwner = document.getElementById('f-owner');
-  fOwner.innerHTML = '<option value="">All Owners</option>' + owners.map(o => `<option>${o}</option>`).join('');
-
-  // Also populate section dropdown in task form
-  const tSection = document.getElementById('t-section');
-  tSection.innerHTML = '<option value="">Select Section</option>' + sections.map(s => `<option>${s}</option>`).join('');
+  supervisorList = [...supervisors];
+  memberList = [...new Set([...members, ...supervisors])].sort();
 }
 
-function applyFilters() {
-  const section = document.getElementById('f-section').value;
-  const component = document.getElementById('f-component').value;
-  const status = document.getElementById('f-status').value;
-  const priority = document.getElementById('f-priority').value;
-  const owner = document.getElementById('f-owner').value;
+// ─────────────────────────────────────────────
+// DROPDOWNS
+// ─────────────────────────────────────────────
+function populateFilterDropdowns() {
+  const sections = Object.keys(configData);
+  document.getElementById('f-section').innerHTML =
+    '<option value="">All Sections</option>' + sections.map(s=>`<option>${escHtml(s)}</option>`).join('');
 
-  // Update component filter based on section selection
-  const compFilter = document.getElementById('f-component');
+  const assignees = [...new Set(visibleTasks.map(t=>t.AssignedTo).filter(Boolean))].sort();
+  document.getElementById('f-assignedto').innerHTML =
+    '<option value="">All Members</option>' + assignees.map(n=>`<option>${escHtml(n)}</option>`).join('');
+}
+
+function populateTaskFormDropdowns() {
+  const sections = Object.keys(configData);
+  document.getElementById('t-section').innerHTML =
+    '<option value="">Select section</option>' + sections.map(s=>`<option>${escHtml(s)}</option>`).join('');
+
+  // Assigned To = all members
+  document.getElementById('t-assigned').innerHTML =
+    '<option value="">Select team member</option>' + memberList.map(n=>`<option>${escHtml(n)}</option>`).join('');
+
+  // Assigned By = supervisors list (+ "Other" fallback)
+  const supNames = supervisorList.length > 0 ? supervisorList : memberList;
+  document.getElementById('t-owner').innerHTML =
+    '<option value="">Select supervisor</option>' + supNames.map(n=>`<option>${escHtml(n)}</option>`).join('');
+}
+
+function loadComponentsForTask() {
+  const section = document.getElementById('t-section').value;
+  const comps   = configData[section] || [];
+  document.getElementById('t-component').innerHTML =
+    '<option value="">Select component</option>' + comps.map(c=>`<option>${escHtml(c)}</option>`).join('');
+}
+
+// ─────────────────────────────────────────────
+// FILTERS & TABLE
+// ─────────────────────────────────────────────
+function applyFilters() {
+  const section    = document.getElementById('f-section').value;
+  const component  = document.getElementById('f-component').value;
+  const status     = document.getElementById('f-status').value;
+  const priority   = document.getElementById('f-priority').value;
+  const assignedto = document.getElementById('f-assignedto').value;
+
+  // Update component dropdown when section changes
+  const compEl = document.getElementById('f-component');
+  const prevComp = compEl.value;
   if (section && configData[section]) {
-    compFilter.innerHTML = '<option value="">All Components</option>' + configData[section].map(c => `<option>${c}</option>`).join('');
+    compEl.innerHTML = '<option value="">All Components</option>' +
+      configData[section].map(c=>`<option>${escHtml(c)}</option>`).join('');
+    if (prevComp) compEl.value = prevComp;
   } else {
-    compFilter.innerHTML = '<option value="">All Components</option>';
+    compEl.innerHTML = '<option value="">All Components</option>';
   }
 
-  filteredTasks = allTasks.filter(t => {
-    if (section && t.Section !== section) return false;
-    if (component && t.Component !== component) return false;
-    if (status && t.Status !== status) return false;
-    if (priority && t.Priority !== priority) return false;
-    if (owner && t.Owner !== owner) return false;
+  filteredTasks = visibleTasks.filter(t => {
+    if (section    && t.Section    !== section)    return false;
+    if (component  && t.Component  !== component)  return false;
+    if (status     && t.Status     !== status)     return false;
+    if (priority   && t.Priority   !== priority)   return false;
+    if (assignedto && t.AssignedTo !== assignedto) return false;
     return true;
   });
 
   sortAndRender();
-  updateStats();
+  updateStats(visibleTasks); // stats always reflect full visible set
 }
 
 function clearFilters() {
-  document.getElementById('f-section').value = '';
-  document.getElementById('f-component').value = '';
-  document.getElementById('f-status').value = '';
-  document.getElementById('f-priority').value = '';
-  document.getElementById('f-owner').value = '';
+  ['f-section','f-component','f-status','f-priority','f-assignedto'].forEach(id => document.getElementById(id).value='');
   applyFilters();
 }
 
 function sortTable(field) {
-  if (sortField === field) sortAsc = !sortAsc;
-  else { sortField = field; sortAsc = true; }
+  sortAsc = sortField===field ? !sortAsc : true;
+  sortField = field;
   sortAndRender();
-  // Update header icons
-  document.querySelectorAll('thead th').forEach(th => th.classList.remove('sorted'));
 }
 
 function sortAndRender() {
-  const sorted = [...filteredTasks].sort((a, b) => {
-    let va = a[sortField] || '', vb = b[sortField] || '';
-    if (va < vb) return sortAsc ? -1 : 1;
-    if (va > vb) return sortAsc ? 1 : -1;
+  const sorted = [...filteredTasks].sort((a,b) => {
+    let va=a[sortField]||'', vb=b[sortField]||'';
+    if (va<vb) return sortAsc?-1:1;
+    if (va>vb) return sortAsc?1:-1;
     return 0;
   });
   renderTable(sorted);
@@ -1435,64 +1597,64 @@ function sortAndRender() {
 
 function renderTable(tasks) {
   const tbody = document.getElementById('task-tbody');
-  document.getElementById('task-count').textContent = `${tasks.length} task${tasks.length !== 1 ? 's' : ''}`;
-  document.getElementById('dash-subtitle').textContent = `${tasks.length} of ${allTasks.length} tasks shown`;
+  document.getElementById('task-count').textContent = `${tasks.length} task${tasks.length!==1?'s':''}`;
+  document.getElementById('dash-subtitle').textContent = `${tasks.length} of ${visibleTasks.length} tasks shown`;
 
-  if (tasks.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><i class="fas fa-inbox"></i><p>No tasks found. Try adjusting filters.</p></div></td></tr>`;
+  if (tasks.length===0) {
+    tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><i class="fas fa-inbox"></i><p>No tasks match your filters.</p></div></td></tr>`;
     return;
   }
 
   tbody.innerHTML = tasks.map(t => `
     <tr>
-      <td><span class="task-id">${t.TaskID || '—'}</span></td>
-      <td>
-        <div class="task-title">${escHtml(t.Title || '—')}</div>
-        ${t.Description ? `<div class="task-desc">${escHtml(t.Description)}</div>` : ''}
+      <td><span class="task-id">${escHtml(t.TaskID||'—')}</span></td>
+      <td class="task-title-cell">
+        <div class="tt">${escHtml(t.Title||'—')}</div>
+        ${t.Description?`<div class="td">${escHtml(t.Description)}</div>`:''}
       </td>
-      <td>${escHtml(t.Section || '—')}</td>
-      <td>${escHtml(t.Component || '—')}</td>
-      <td>${escHtml(t.AssignedTo || '—')}</td>
+      <td>${escHtml(t.Section||'—')}</td>
+      <td>${escHtml(t.Component||'—')}</td>
+      <td><span class="assigned-to">${escHtml(t.AssignedTo||'—')}</span></td>
+      <td><span class="assigned-by-cell">${escHtml(t.Owner||'—')}</span></td>
       <td>${fmtDate(t.DueDate)}</td>
       <td>${priorityBadge(t.Priority)}</td>
       <td>${statusBadge(t.Status)}</td>
       <td>
         <div class="action-btns">
-          <button class="action-btn edit" onclick="openEditTaskModal('${t.TaskID}')"><i class="fas fa-pen"></i></button>
-          <button class="action-btn update" onclick="openUpdateModal('${t.TaskID}')"><i class="fas fa-rotate"></i></button>
-          <button class="action-btn delete" onclick="openDeleteModal('${t.TaskID}', '${escHtml(t.Title)}')"><i class="fas fa-trash"></i></button>
+          <button class="action-btn edit"   onclick="openEditTaskModal('${escHtml(t.TaskID)}')"  title="Edit"><i class="fas fa-pen"></i></button>
+          <button class="action-btn update" onclick="openUpdateModal('${escHtml(t.TaskID)}')"    title="Update Status"><i class="fas fa-rotate"></i></button>
+          <button class="action-btn delete" onclick="openDeleteModal('${escHtml(t.TaskID)}','${escHtml(t.Title)}')" title="Delete"><i class="fas fa-trash"></i></button>
         </div>
       </td>
     </tr>
   `).join('');
 }
 
-function escHtml(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+function updateStats(tasks) {
+  document.getElementById('s-total').textContent     = tasks.length;
+  document.getElementById('s-completed').textContent = tasks.filter(t=>t.Status==='Completed').length;
+  document.getElementById('s-pending').textContent   = tasks.filter(t=>t.Status==='Pending').length;
+  document.getElementById('s-delayed').textContent   = tasks.filter(t=>t.Status==='Delayed').length;
+  document.getElementById('s-onhold').textContent    = tasks.filter(t=>t.Status==='On Hold').length;
+  document.getElementById('s-overdue').textContent   = tasks.filter(t=>t.Status==='Overdue').length;
+  document.getElementById('s-highpri').textContent   = tasks.filter(t=>t.Priority==='High').length;
 }
 
-function updateStats() {
-  const tasks = allTasks; // always show stats for all tasks
-  document.getElementById('s-total').textContent = tasks.length;
-  document.getElementById('s-completed').textContent = tasks.filter(t => t.Status === 'Completed').length;
-  document.getElementById('s-pending').textContent = tasks.filter(t => t.Status === 'Pending').length;
-  document.getElementById('s-delayed').textContent = tasks.filter(t => t.Status === 'Delayed').length;
-  document.getElementById('s-onhold').textContent = tasks.filter(t => t.Status === 'On Hold').length;
-  document.getElementById('s-overdue').textContent = tasks.filter(t => t.Status === 'Overdue').length;
-  document.getElementById('s-highpri').textContent = tasks.filter(t => t.Priority === 'High').length;
-}
-
-// ===================== TASK CRUD =====================
+// ─────────────────────────────────────────────
+// TASK CRUD
+// ─────────────────────────────────────────────
 function openAddTaskModal() {
   currentEditTaskId = null;
   document.getElementById('task-modal-title').textContent = 'Add New Task';
   document.getElementById('task-submit-btn').innerHTML = '<i class="fas fa-plus"></i> Create Task';
   clearTaskForm();
+  // Pre-fill "Assigned By" if current user is a supervisor
+  if (supervisorList.includes(session.name)) document.getElementById('t-owner').value = session.name;
   openModal('task-modal-backdrop');
 }
 
 function openEditTaskModal(taskId) {
-  const task = allTasks.find(t => t.TaskID === taskId);
+  const task = allTasks.find(t=>t.TaskID===taskId);
   if (!task) return;
   currentEditTaskId = taskId;
   document.getElementById('task-modal-title').textContent = 'Edit Task';
@@ -1502,104 +1664,91 @@ function openEditTaskModal(taskId) {
 }
 
 function clearTaskForm() {
-  ['t-title','t-desc','t-assigned','t-owner','t-assigned-date','t-due-date','t-remarks'].forEach(id => { document.getElementById(id).value = ''; });
-  document.getElementById('t-section').value = '';
-  document.getElementById('t-component').innerHTML = '<option value="">Select Component</option>';
+  ['t-title','t-desc','t-assigned-date','t-due-date','t-remarks'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('t-section').value  = '';
+  document.getElementById('t-component').innerHTML = '<option value="">Select component</option>';
+  document.getElementById('t-assigned').value = '';
+  document.getElementById('t-owner').value    = '';
   document.getElementById('t-priority').value = 'Medium';
-  document.getElementById('t-status').value = 'Not Started';
+  document.getElementById('t-status').value   = 'Not Started';
   document.getElementById('t-title-err').classList.remove('visible');
 }
 
 function fillTaskForm(task) {
-  document.getElementById('t-title').value = task.Title || '';
-  document.getElementById('t-desc').value = task.Description || '';
-  document.getElementById('t-assigned').value = task.AssignedTo || '';
-  document.getElementById('t-owner').value = task.Owner || '';
+  document.getElementById('t-title').value         = task.Title || '';
+  document.getElementById('t-desc').value          = task.Description || '';
   document.getElementById('t-assigned-date').value = task.AssignedDate || '';
-  document.getElementById('t-due-date').value = task.DueDate || '';
-  document.getElementById('t-priority').value = task.Priority || 'Medium';
-  document.getElementById('t-status').value = task.Status || 'Not Started';
-  document.getElementById('t-remarks').value = task.Remarks || '';
-
-  // Set section
-  const sectionEl = document.getElementById('t-section');
-  sectionEl.value = task.Section || '';
+  document.getElementById('t-due-date').value      = task.DueDate || '';
+  document.getElementById('t-priority').value      = task.Priority || 'Medium';
+  document.getElementById('t-status').value        = task.Status || 'Not Started';
+  document.getElementById('t-remarks').value       = task.Remarks || '';
+  document.getElementById('t-section').value       = task.Section || '';
   loadComponentsForTask();
-  setTimeout(() => { document.getElementById('t-component').value = task.Component || ''; }, 50);
-}
-
-function loadComponentsForTask() {
-  const section = document.getElementById('t-section').value;
-  const compEl = document.getElementById('t-component');
-  const comps = configData[section] || [];
-  compEl.innerHTML = '<option value="">Select Component</option>' + comps.map(c => `<option>${c}</option>`).join('');
+  setTimeout(() => {
+    document.getElementById('t-component').value = task.Component || '';
+    document.getElementById('t-assigned').value  = task.AssignedTo || '';
+    document.getElementById('t-owner').value     = task.Owner || '';
+  }, 50);
 }
 
 async function submitTask() {
   const title = document.getElementById('t-title').value.trim();
-  if (!title) {
-    document.getElementById('t-title-err').classList.add('visible');
-    document.getElementById('t-title').focus();
-    return;
-  }
+  if (!title) { document.getElementById('t-title-err').classList.add('visible'); document.getElementById('t-title').focus(); return; }
   document.getElementById('t-title-err').classList.remove('visible');
 
   const taskData = {
-    Title: title,
-    Description: document.getElementById('t-desc').value.trim(),
-    Section: document.getElementById('t-section').value,
-    Component: document.getElementById('t-component').value,
-    AssignedTo: document.getElementById('t-assigned').value.trim(),
-    Owner: document.getElementById('t-owner').value.trim(),
+    Title:        title,
+    Description:  document.getElementById('t-desc').value.trim(),
+    Section:      document.getElementById('t-section').value,
+    Component:    document.getElementById('t-component').value,
+    AssignedTo:   document.getElementById('t-assigned').value,
+    Owner:        document.getElementById('t-owner').value,
     AssignedDate: document.getElementById('t-assigned-date').value,
-    DueDate: document.getElementById('t-due-date').value,
-    Priority: document.getElementById('t-priority').value,
-    Status: document.getElementById('t-status').value,
-    Remarks: document.getElementById('t-remarks').value.trim(),
-    CreatedBy: session.email
+    DueDate:      document.getElementById('t-due-date').value,
+    Priority:     document.getElementById('t-priority').value,
+    Status:       document.getElementById('t-status').value,
+    Remarks:      document.getElementById('t-remarks').value.trim(),
+    CreatedBy:    session.email
   };
 
-  showLoading(currentEditTaskId ? 'Saving changes...' : 'Creating task...');
+  showLoading(currentEditTaskId ? 'Saving changes…' : 'Creating task…');
   try {
-    let res;
-    if (currentEditTaskId) {
-      res = await apiCall({ action: 'UPDATE_TASK', taskId: currentEditTaskId, task: taskData });
-    } else {
-      res = await apiCall({ action: 'ADD_TASK', task: taskData });
-    }
+    const action = currentEditTaskId ? 'UPDATE_TASK' : 'ADD_TASK';
+    const payload = currentEditTaskId ? { action, taskId:currentEditTaskId, task:taskData } : { action, task:taskData };
+    const res = await apiCall(payload);
     if (res.success) {
       closeModal('task-modal-backdrop');
       toast(currentEditTaskId ? 'Task updated!' : 'Task created and notification sent!', 'success');
       await refreshTasks();
-    } else { toast(res.message || 'Failed to save task.', 'error'); }
-  } catch (e) { toast('Connection error.', 'error'); console.error(e); }
+    } else toast(res.message||'Failed to save.','error');
+  } catch(e) { toast('Connection error.','error'); console.error(e); }
   hideLoading();
 }
 
 function openUpdateModal(taskId) {
-  const task = allTasks.find(t => t.TaskID === taskId);
+  const task = allTasks.find(t=>t.TaskID===taskId);
   if (!task) return;
   currentEditTaskId = taskId;
-  document.getElementById('update-task-title').textContent = task.Title;
-  document.getElementById('update-task-id').textContent = task.TaskID;
-  document.getElementById('update-current-status').textContent = task.Status || 'Not Started';
-  document.getElementById('update-new-status').value = task.Status || 'Not Started';
-  document.getElementById('update-remarks').value = '';
+  document.getElementById('update-task-title').textContent    = task.Title;
+  document.getElementById('update-task-id').textContent       = task.TaskID;
+  document.getElementById('update-current-status').textContent= task.Status||'Not Started';
+  document.getElementById('update-new-status').value          = task.Status||'Not Started';
+  document.getElementById('update-remarks').value             = '';
   openModal('update-modal-backdrop');
 }
 
 async function submitStatusUpdate() {
   const newStatus = document.getElementById('update-new-status').value;
-  const remarks = document.getElementById('update-remarks').value.trim();
-  showLoading('Updating status...');
+  const remarks   = document.getElementById('update-remarks').value.trim();
+  showLoading('Updating status…');
   try {
-    const res = await apiCall({ action: 'UPDATE_STATUS', taskId: currentEditTaskId, newStatus, remarks, updatedBy: session.email });
+    const res = await apiCall({ action:'UPDATE_STATUS', taskId:currentEditTaskId, newStatus, remarks, updatedBy:session.email });
     if (res.success) {
       closeModal('update-modal-backdrop');
-      toast('Status updated and notification sent!', 'success');
+      toast('Status updated and notification sent!','success');
       await refreshTasks();
-    } else { toast(res.message || 'Failed to update status.', 'error'); }
-  } catch { toast('Connection error.', 'error'); }
+    } else toast(res.message||'Failed.','error');
+  } catch { toast('Connection error.','error'); }
   hideLoading();
 }
 
@@ -1610,137 +1759,229 @@ function openDeleteModal(taskId, title) {
 }
 
 async function confirmDelete() {
-  showLoading('Deleting task...');
+  showLoading('Deleting…');
   try {
-    const res = await apiCall({ action: 'DELETE_TASK', taskId: currentDeleteTaskId });
-    if (res.success) {
-      closeModal('delete-modal-backdrop');
-      toast('Task deleted.', 'info');
-      await refreshTasks();
-    } else { toast(res.message || 'Failed to delete.', 'error'); }
-  } catch { toast('Connection error.', 'error'); }
+    const res = await apiCall({ action:'DELETE_TASK', taskId:currentDeleteTaskId });
+    if (res.success) { closeModal('delete-modal-backdrop'); toast('Task deleted.','info'); await refreshTasks(); }
+    else toast(res.message||'Failed.','error');
+  } catch { toast('Connection error.','error'); }
   hideLoading();
 }
 
 async function refreshTasks() {
   try {
-    const res = await apiCall({ action: 'GET_TASKS' });
-    if (res.success) { allTasks = res.tasks || []; populateFilterDropdowns(); applyFilters(); }
+    const res = await apiCall({ action:'GET_TASKS' });
+    if (res.success) {
+      allTasks     = res.tasks || [];
+      visibleTasks = filterTasksByVisibility(allTasks);
+      populateFilterDropdowns();
+      applyFilters();
+    }
   } catch {}
 }
 
-// ===================== ADMIN PANEL =====================
+// ─────────────────────────────────────────────
+// ADMIN — USERS
+// ─────────────────────────────────────────────
 function toggleAdminPanel() {
   const panel = document.getElementById('admin-panel');
   panel.classList.toggle('visible');
-  if (panel.classList.contains('visible')) { loadUsers(); renderConfigPanel(); }
+  if (panel.classList.contains('visible')) { loadUsers(); renderTeamPanel(); renderConfigPanel(); }
 }
 
 function switchAdminTab(tab, btn) {
-  ['users','config','adduser'].forEach(t => {
-    document.getElementById(`admin-tab-${t}`).classList.add('hidden');
-  });
+  ['users','team','config','adduser'].forEach(t => document.getElementById(`admin-tab-${t}`).classList.add('hidden'));
   document.getElementById(`admin-tab-${tab}`).classList.remove('hidden');
-  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  if (tab === 'users') loadUsers();
-  if (tab === 'config') renderConfigPanel();
+  if (tab==='users')  loadUsers();
+  if (tab==='team')   renderTeamPanel();
+  if (tab==='config') renderConfigPanel();
 }
 
 async function loadUsers() {
   try {
-    const res = await apiCall({ action: 'GET_USERS', adminEmail: session.email });
-    if (res.success) { allUsers = res.users || []; renderUsersTable(); }
+    const res = await apiCall({ action:'GET_USERS', adminEmail:session.email });
+    if (res.success) { allUsers=res.users||[]; buildPeopleLists(); renderUsersTable(); }
   } catch {}
 }
 
 function renderUsersTable() {
   const tbody = document.getElementById('users-tbody');
-  tbody.innerHTML = allUsers.map(u => `
-    <tr>
+  tbody.innerHTML = allUsers.map(u => {
+    const isAdm = u.IsAdmin==='TRUE'||u.IsAdmin===true;
+    const isAct = u.IsActive==='TRUE'||u.IsActive===true;
+    const isPwChg = u.PasswordChanged==='TRUE'||u.PasswordChanged===true;
+    return `<tr>
       <td><strong>${escHtml(u.Name)}</strong></td>
-      <td>${escHtml(u.Email)}</td>
-      <td><span class="badge ${u.IsActive === 'TRUE' || u.IsActive === true ? 'badge-completed' : 'badge-delayed'}">${u.IsActive === 'TRUE' || u.IsActive === true ? 'Active' : 'Inactive'}</span></td>
-      <td>${u.IsAdmin === 'TRUE' || u.IsAdmin === true ? '<span class="badge badge-high">Admin</span>' : '<span class="badge badge-notstarted">User</span>'}</td>
-      <td>${u.PasswordChanged === 'TRUE' || u.PasswordChanged === true ? '✅' : '⚠️ Default'}</td>
-      <td>${u.LastLogin ? fmtDate(u.LastLogin) : 'Never'}</td>
+      <td style="font-size:0.8rem">${escHtml(u.Email)}</td>
+      <td><span class="badge ${isAdm?'badge-delayed':'badge-notstarted'}">${isAdm?'Admin':'Member'}</span></td>
+      <td><span class="badge ${isAct?'badge-completed':'badge-overdue'}">${isAct?'Active':'Inactive'}</span></td>
+      <td>${isPwChg?'✅':'⚠️ Default'}</td>
+      <td style="font-size:0.78rem">${u.LastLogin?fmtDate(u.LastLogin):'Never'}</td>
       <td>
         <div class="action-btns">
           <button class="action-btn update" onclick="resetUserPw('${escHtml(u.Email)}')" title="Reset Password"><i class="fas fa-key"></i></button>
-          <button class="action-btn edit" onclick="toggleAdmin('${escHtml(u.Email)}', ${u.IsAdmin === 'TRUE' || u.IsAdmin === true})" title="Toggle Admin"><i class="fas fa-shield"></i></button>
-          <button class="action-btn edit" onclick="toggleActive('${escHtml(u.Email)}', ${u.IsActive === 'TRUE' || u.IsActive === true})" title="Toggle Active"><i class="fas fa-toggle-on"></i></button>
-          <button class="action-btn delete" onclick="deleteUser('${escHtml(u.Email)}')" title="Delete User"><i class="fas fa-trash"></i></button>
+          <button class="action-btn edit"   onclick="toggleAdmin('${escHtml(u.Email)}',${isAdm})" title="Toggle Admin"><i class="fas fa-shield"></i></button>
+          <button class="action-btn edit"   onclick="toggleActive('${escHtml(u.Email)}',${isAct})" title="Toggle Active"><i class="fas fa-toggle-on"></i></button>
+          <button class="action-btn delete" onclick="deleteUser('${escHtml(u.Email)}')" title="Delete"><i class="fas fa-trash"></i></button>
         </div>
       </td>
-    </tr>
-  `).join('');
+    </tr>`;
+  }).join('');
 }
 
 async function resetUserPw(email) {
   if (!confirm(`Reset ${email}'s password to Mel@2026?`)) return;
-  showLoading('Resetting...');
-  const res = await apiCall({ action: 'RESET_PASSWORD', email, adminEmail: session.email });
-  if (res.success) toast('Password reset!', 'success'); else toast('Failed.', 'error');
+  showLoading('Resetting…');
+  const res = await apiCall({ action:'RESET_PASSWORD', email, adminEmail:session.email });
+  if (res.success) toast('Password reset!','success'); else toast('Failed.','error');
   hideLoading();
 }
-
-async function toggleAdmin(email, isAdmin) {
-  showLoading('Updating...');
-  const res = await apiCall({ action: 'UPDATE_USER', email, updates: { IsAdmin: (!isAdmin).toString().toUpperCase() }, adminEmail: session.email });
-  if (res.success) { toast('Updated!', 'success'); await loadUsers(); } else toast('Failed.', 'error');
+async function toggleAdmin(email, isAdm) {
+  showLoading('Updating…');
+  const res = await apiCall({ action:'UPDATE_USER', email, updates:{ IsAdmin:(!isAdm).toString().toUpperCase() }, adminEmail:session.email });
+  if (res.success) { toast('Updated!','success'); await loadUsers(); } else toast('Failed.','error');
   hideLoading();
 }
-
-async function toggleActive(email, isActive) {
-  showLoading('Updating...');
-  const res = await apiCall({ action: 'UPDATE_USER', email, updates: { IsActive: (!isActive).toString().toUpperCase() }, adminEmail: session.email });
-  if (res.success) { toast('Updated!', 'success'); await loadUsers(); } else toast('Failed.', 'error');
+async function toggleActive(email, isAct) {
+  showLoading('Updating…');
+  const res = await apiCall({ action:'UPDATE_USER', email, updates:{ IsActive:(!isAct).toString().toUpperCase() }, adminEmail:session.email });
+  if (res.success) { toast('Updated!','success'); await loadUsers(); } else toast('Failed.','error');
   hideLoading();
 }
-
 async function deleteUser(email) {
-  if (!confirm(`Permanently delete user ${email}? This cannot be undone.`)) return;
-  showLoading('Deleting...');
-  const res = await apiCall({ action: 'DELETE_USER', email, adminEmail: session.email });
-  if (res.success) { toast('User deleted.', 'info'); await loadUsers(); } else toast('Failed.', 'error');
+  if (!confirm(`Permanently delete ${email}?`)) return;
+  showLoading('Deleting…');
+  const res = await apiCall({ action:'DELETE_USER', email, adminEmail:session.email });
+  if (res.success) { toast('User deleted.','info'); await loadUsers(); } else toast('Failed.','error');
   hideLoading();
 }
-
 async function addUser() {
-  const name = document.getElementById('nu-name').value.trim();
-  const email = document.getElementById('nu-email').value.trim();
+  const name    = document.getElementById('nu-name').value.trim();
+  const email   = document.getElementById('nu-email').value.trim();
   const isAdmin = document.getElementById('nu-admin').checked;
-  if (!name || !email) { toast('Name and email required.', 'error'); return; }
-  if (!email.endsWith('@lendahandindia.org')) { toast('Email must be @lendahandindia.org.', 'error'); return; }
-  showLoading('Creating user...');
-  const res = await apiCall({ action: 'ADD_USER', name, email, isAdmin: isAdmin ? 'TRUE' : 'FALSE', adminEmail: session.email });
+  if (!name||!email) { toast('Name and email required.','error'); return; }
+  if (!email.endsWith('@lendahandindia.org')) { toast('Email must be @lendahandindia.org','error'); return; }
+  showLoading('Creating user…');
+  const res = await apiCall({ action:'ADD_USER', name, email, isAdmin:isAdmin?'TRUE':'FALSE', adminEmail:session.email });
   if (res.success) {
-    toast('User created! Default password: Mel@2026', 'success');
-    document.getElementById('nu-name').value = '';
-    document.getElementById('nu-email').value = '';
-    document.getElementById('nu-admin').checked = false;
+    toast('User created! Default password: Mel@2026','success');
+    document.getElementById('nu-name').value=''; document.getElementById('nu-email').value=''; document.getElementById('nu-admin').checked=false;
     await loadUsers();
-  } else toast(res.message || 'Failed.', 'error');
+  } else toast(res.message||'Failed.','error');
   hideLoading();
 }
 
-// ===================== CONFIG =====================
+// ─────────────────────────────────────────────
+// ADMIN — TEAM STRUCTURE
+// ─────────────────────────────────────────────
+function renderTeamPanel() {
+  // Populate supervisor / member selects
+  const allNames = allUsers.map(u=>u.Name).filter(Boolean).sort();
+  const supSel = document.getElementById('team-supervisor-select');
+  const memSel = document.getElementById('team-member-select');
+  const remSel = document.getElementById('team-remove-select');
+
+  supSel.innerHTML = '<option value="">Select supervisor…</option>' + allNames.map(n=>`<option>${escHtml(n)}</option>`).join('');
+  memSel.innerHTML = '<option value="">Select member…</option>'     + allNames.map(n=>`<option>${escHtml(n)}</option>`).join('');
+
+  // Remove select = all current subordinates across all supervisors
+  const allSubs = [];
+  Object.entries(teamData).forEach(([sup, members]) => {
+    members.forEach(m => allSubs.push({ label:`${m} (under ${sup})`, val:`${sup}|||${m}` }));
+  });
+  remSel.innerHTML = '<option value="">Select to remove…</option>' + allSubs.map(x=>`<option value="${escHtml(x.val)}">${escHtml(x.label)}</option>`).join('');
+
+  renderTeamTree();
+}
+
+function renderTeamTree() {
+  const container = document.getElementById('team-tree-display');
+  const supervisors = Object.keys(teamData);
+
+  if (supervisors.length===0) {
+    container.innerHTML = '<p style="color:var(--text-muted);font-size:0.83rem;padding:10px">No team structure defined yet. Add relationships using the form.</p>';
+    return;
+  }
+
+  container.innerHTML = supervisors.map(sup => `
+    <div style="margin-bottom:10px">
+      <div class="team-supervisor-row">
+        <i class="fas fa-user-tie" style="color:var(--lahi-orange);font-size:0.9rem"></i>
+        <div>
+          <div class="team-supervisor-name">${escHtml(sup)}</div>
+          <div class="team-supervisor-label">Supervisor · ${teamData[sup].length} member(s)</div>
+        </div>
+      </div>
+      <ul class="team-members">
+        ${(teamData[sup]||[]).map(m => `
+          <li class="team-member-row">
+            <i class="fas fa-user" style="color:var(--text-light);font-size:0.8rem"></i>
+            <div class="team-member-name">${escHtml(m)}</div>
+          </li>
+        `).join('')}
+        ${teamData[sup].length===0 ? '<li style="padding:6px 12px;font-size:0.8rem;color:var(--text-light)">No members yet</li>' : ''}
+      </ul>
+    </div>
+  `).join('');
+}
+
+function addTeamRelationship() {
+  const sup = document.getElementById('team-supervisor-select').value;
+  const mem = document.getElementById('team-member-select').value;
+  if (!sup||!mem) { toast('Select both a supervisor and a member.','error'); return; }
+  if (sup===mem)  { toast('Supervisor and member cannot be the same person.','error'); return; }
+  if (!teamData[sup]) teamData[sup] = [];
+  if (teamData[sup].includes(mem)) { toast(`${mem} is already under ${sup}.`,'error'); return; }
+  teamData[sup].push(mem);
+  renderTeamPanel();
+  toast(`Added ${mem} under ${sup}.`,'success');
+}
+
+function removeTeamMember() {
+  const val = document.getElementById('team-remove-select').value;
+  if (!val) { toast('Select a member to remove.','error'); return; }
+  const [sup, mem] = val.split('|||');
+  if (!teamData[sup]) return;
+  teamData[sup] = teamData[sup].filter(m=>m!==mem);
+  if (teamData[sup].length===0) delete teamData[sup];
+  renderTeamPanel();
+  toast(`Removed ${mem} from ${sup}'s team.`,'info');
+}
+
+async function saveTeamStructure() {
+  showLoading('Saving team structure…');
+  try {
+    const res = await apiCall({ action:'UPDATE_TEAM', team:teamData, adminEmail:session.email });
+    if (res.success) {
+      buildPeopleLists();
+      visibleTasks = filterTasksByVisibility(allTasks);
+      buildVisibilityBanner();
+      applyFilters();
+      toast('Team structure saved!','success');
+    } else toast(res.message||'Failed.','error');
+  } catch { toast('Connection error.','error'); }
+  hideLoading();
+}
+
+// ─────────────────────────────────────────────
+// ADMIN — CONFIG
+// ─────────────────────────────────────────────
 function renderConfigPanel() {
-  const layout = document.getElementById('config-layout');
+  const layout   = document.getElementById('config-layout');
   const sections = Object.keys(configData);
 
   layout.innerHTML = `
     <div class="config-section">
-      <div class="config-section-head">
-        <div class="config-section-title">Sections</div>
-      </div>
+      <div class="config-section-head"><div class="config-section-title">Sections</div></div>
       <ul class="config-list">
-        ${sections.map(s => `
+        ${sections.map(s=>`
           <li class="config-item">
             <span class="config-item-name">${escHtml(s)}</span>
             <button class="btn-config-del" onclick="deleteSection('${escHtml(s)}')"><i class="fas fa-xmark"></i></button>
           </li>
-        `).join('') || '<li class="config-item" style="color:var(--text-muted)">No sections yet</li>'}
+        `).join('')||'<li class="config-item" style="color:var(--text-muted)">No sections yet</li>'}
       </ul>
       <div class="config-add-row">
         <input type="text" class="config-add-input" id="new-section-input" placeholder="New section name">
@@ -1751,100 +1992,74 @@ function renderConfigPanel() {
       <div class="config-section-head">
         <div class="config-section-title">Components</div>
         <select class="filter-select" id="comp-section-select" onchange="renderConfigPanel()" style="min-width:140px">
-          ${sections.map(s => `<option>${s}</option>`).join('')}
+          ${sections.map(s=>`<option>${escHtml(s)}</option>`).join('')}
         </select>
       </div>
-      <div id="comp-list-container">
-        ${renderCompList()}
-      </div>
-    </div>
-  `;
+      <div id="comp-list-container">${renderCompList()}</div>
+    </div>`;
 }
-
 function renderCompList() {
   const secEl = document.getElementById('comp-section-select');
-  const sec = secEl ? secEl.value : Object.keys(configData)[0];
-  if (!sec) return '<ul class="config-list"><li class="config-item" style="color:var(--text-muted)">Select a section first</li></ul>';
-  const comps = configData[sec] || [];
-  return `
-    <ul class="config-list">
-      ${comps.map(c => `
-        <li class="config-item">
-          <span class="config-item-name">${escHtml(c)}</span>
-          <button class="btn-config-del" onclick="deleteComponent('${escHtml(sec)}', '${escHtml(c)}')"><i class="fas fa-xmark"></i></button>
-        </li>
-      `).join('') || '<li class="config-item" style="color:var(--text-muted)">No components yet</li>'}
-    </ul>
-    <div class="config-add-row">
-      <input type="text" class="config-add-input" id="new-comp-input" placeholder="New component name">
-      <button class="btn-config-add" onclick="addComponent('${escHtml(sec)}')">+ Add</button>
-    </div>
-  `;
+  const sec   = secEl ? secEl.value : Object.keys(configData)[0];
+  if (!sec) return '<ul class="config-list"><li class="config-item" style="color:var(--text-muted)">Select a section</li></ul>';
+  const comps = configData[sec]||[];
+  return `<ul class="config-list">
+    ${comps.map(c=>`<li class="config-item"><span class="config-item-name">${escHtml(c)}</span><button class="btn-config-del" onclick="deleteComponent('${escHtml(sec)}','${escHtml(c)}')"><i class="fas fa-xmark"></i></button></li>`).join('')||'<li class="config-item" style="color:var(--text-muted)">No components yet</li>'}
+  </ul>
+  <div class="config-add-row">
+    <input type="text" class="config-add-input" id="new-comp-input" placeholder="New component name">
+    <button class="btn-config-add" onclick="addComponent('${escHtml(sec)}')">+ Add</button>
+  </div>`;
 }
-
 function addSection() {
   const name = document.getElementById('new-section-input').value.trim();
   if (!name) return;
-  if (configData[name]) { toast('Section already exists.', 'error'); return; }
-  configData[name] = [];
-  renderConfigPanel();
+  if (configData[name]) { toast('Section already exists.','error'); return; }
+  configData[name]=[]; renderConfigPanel();
 }
-
 function deleteSection(name) {
   if (!confirm(`Delete section "${name}" and all its components?`)) return;
-  delete configData[name];
-  renderConfigPanel();
+  delete configData[name]; renderConfigPanel();
 }
-
 function addComponent(section) {
-  const inp = document.getElementById('new-comp-input');
-  const name = inp ? inp.value.trim() : '';
+  const inp  = document.getElementById('new-comp-input');
+  const name = inp?inp.value.trim():'';
   if (!name) return;
-  if (!configData[section]) configData[section] = [];
-  if (configData[section].includes(name)) { toast('Component already exists.', 'error'); return; }
-  configData[section].push(name);
-  renderConfigPanel();
+  if (!configData[section]) configData[section]=[];
+  if (configData[section].includes(name)) { toast('Component already exists.','error'); return; }
+  configData[section].push(name); renderConfigPanel();
 }
-
 function deleteComponent(section, comp) {
   if (!configData[section]) return;
-  configData[section] = configData[section].filter(c => c !== comp);
-  renderConfigPanel();
+  configData[section]=configData[section].filter(c=>c!==comp); renderConfigPanel();
 }
-
 async function saveConfig() {
-  showLoading('Saving config...');
+  showLoading('Saving config…');
   try {
-    const res = await apiCall({ action: 'UPDATE_CONFIG', config: configData, adminEmail: session.email });
-    if (res.success) {
-      toast('Config saved!', 'success');
-      populateFilterDropdowns();
-    } else toast('Failed to save config.', 'error');
-  } catch { toast('Connection error.', 'error'); }
+    const res = await apiCall({ action:'UPDATE_CONFIG', config:configData, adminEmail:session.email });
+    if (res.success) { toast('Config saved!','success'); populateFilterDropdowns(); populateTaskFormDropdowns(); }
+    else toast('Failed.','error');
+  } catch { toast('Connection error.','error'); }
   hideLoading();
 }
 
-// ===================== PAGE LOAD =====================
+// ─────────────────────────────────────────────
+// PAGE LOAD
+// ─────────────────────────────────────────────
 (function init() {
-  showLoading('Initializing...');
+  showLoading('Initializing…');
   const s = loadSession();
-  if (s) {
-    session = s;
-    initDashboard(s).catch(() => hideLoading());
-  } else {
-    hideLoading();
-    document.getElementById('login-page').style.display = 'flex';
-  }
+  if (s) { session=s; initDashboard(s).catch(()=>hideLoading()); }
+  else   { hideLoading(); document.getElementById('login-page').style.display='flex'; }
 })();
 
-// Close modals on backdrop click
-document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-  backdrop.addEventListener('click', function(e) {
-    if (e.target === this) {
-      // Don't close change-pw modal if first login
-      if (this.id === 'changepw-modal-backdrop' && !session?.passwordChanged && document.getElementById('first-login-notice').style.display !== 'none') return;
-      this.classList.remove('open');
-    }
+// Backdrop click to close modals
+document.querySelectorAll('.modal-backdrop').forEach(bd => {
+  bd.addEventListener('click', function(e) {
+    if (e.target !== this) return;
+    if (this.id==='changepw-modal-backdrop' && !session?.passwordChanged &&
+        document.getElementById('first-login-notice').style.display!=='none') return;
+    this.classList.remove('open');
   });
 });
 </script>
